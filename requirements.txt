@@ -1,0 +1,8 @@
+pyTelegramBotAPI
+python-dotenv
+pytz
+wikipedia
+Pillow
+Flask
+waitress
+requests
