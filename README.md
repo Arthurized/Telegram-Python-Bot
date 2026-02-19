@@ -1,9 +1,7 @@
 # ⚙️ Python Telegram Bot
-
-
+<br>
 ## A multi-functional Telegram bot, originally created at high school, refactored applying Software Engineering methodologies -- modular design, unit testing. 
-
-
+<br>
 This project was built in two phases.
 
 **Phase 1:**
@@ -20,14 +18,16 @@ The content of the bot: articles, videos, photos, and functionality. Used to be 
 
 An evolution from a hobby project to engineering mindset. (The rest of the project: see below)
 
-* *Architecture* Modular architecture (Service Layer pattern)
-*  *Config* Environment variables (`.env`) & Dynamic paths
-*  *Logic* Business logic isolated in `services.py`
-*  *Quality* Unit testing via `pytest`
+* *Architecture:* Modular architecture (Service Layer pattern)
+*  *Config:* Environment variables (`.env`) & Dynamic paths
+*  *Logic:* Business logic isolated in `services.py`
+*  *Quality:* Unit testing via `pytest`
 
 ## Project Structure:
 
-![The repo's tree](assets/images/Structure.png)
+<p align="center">
+  <img src="assets/images/Structure.png" width="500" alt="Project Structure">
+</p>
 
 ## How to install and why to install:
 
@@ -66,5 +66,6 @@ python main.py
 pytest
 ```
 
-# END🎆
+# END!🎆
+
 
