@@ -1,7 +1,7 @@
 # ⚙️ Python Telegram Bot
 <br>
-## A multi-functional Telegram bot, originally created at high school, refactored applying Software Engineering methodologies -- modular design, unit testing. 
-<br>
+**A multi-functional Telegram bot, originally created at high school, refactored applying Software Engineering methodologies -- modular design, unit testing.**
+
 This project was built in two phases.
 
 **Phase 1:**
@@ -67,5 +67,6 @@ pytest
 ```
 
 # END!🎆
+
 
 
