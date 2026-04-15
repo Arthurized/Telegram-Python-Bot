@@ -5,4 +5,3 @@ if __name__ == "__main__":
     keep_alive()
     bot.polling(non_stop=True, interval=1)
 
-
