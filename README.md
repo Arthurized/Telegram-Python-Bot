@@ -1,8 +1,18 @@
-# ⚙️ Python Telegram Bot
-<br>
-<b>A multi-functional Telegram bot, originally created at high school, refactored applying Software Engineering methodologies -- modular design, unit testing.</b><br><br>
+<div align="center">
 
-This project was built in two phases.
+# ⚙️ Python Telegram Bot
+
+**A multi-functional Telegram bot, first built in high school and later refactored using software engineering practices: modular design and unit testing.**
+
+[![Python](https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Telegram](https://img.shields.io/badge/Telegram-Bot-26A5E4?logo=telegram&logoColor=white)](https://t.me/Ur_all_aboutPython_bot)
+
+[**▶ Open in Telegram Web**](https://web.telegram.org/k/#@Ur_all_aboutPython_bot) · [**Open in the Telegram app**](https://t.me/Ur_all_aboutPython_bot)
+
+</div>
+
+
+## 📖 About
 
 **Phase 1:**
 
