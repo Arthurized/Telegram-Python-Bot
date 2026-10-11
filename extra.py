@@ -76,7 +76,7 @@ def message_reply(message):
                          "CAACAgIAAxkBAAEHldtj3nEffjcLFcwdqE7sxv382mbzmwACZwADHwFMFQMvnzs0dPL6LgQ")
         bot.send_message(
             message.chat.id,
-            "http://all.about.python.ru.tilda.ws/",
+            "https://all-about-python.vercel.app/",
             disable_web_page_preview=True)
 
     # ---------- WIKIPEDIA SEARCH ----------
