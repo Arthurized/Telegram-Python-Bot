@@ -14,6 +14,7 @@ from background import keep_alive
 import telebot
 import wikipedia
 import random
+import time
 from datetime import datetime, date
 from telebot import types
 from PIL import Image
@@ -256,5 +257,28 @@ def message_reply(message):
 
 # ================= RUN =================
 
-keep_alive()
-bot.polling(non_stop=True, interval=1)
+# On a host with no port to serve (Replit's Background Worker, a VPS, your
+# own machine) set KEEP_ALIVE=0 and the little web server never starts.
+if os.getenv("KEEP_ALIVE", "1") != "0":
+    keep_alive()
+
+# Telegram answers getUpdates with 409 for as long as a webhook is
+# registered, so clear any webhook left over from an earlier experiment.
+try:
+    bot.remove_webhook()
+except Exception as error:
+    print("remove_webhook failed, continuing:", error)
+
+# Polling is wrapped in a loop so that a dropped connection restarts it
+# instead of ending the program. The delay doubles up to a minute, so a
+# lasting problem does not hammer Telegram.
+delay = 1
+while True:
+    try:
+        print("polling")
+        bot.infinity_polling(timeout=20, long_polling_timeout=20)
+        delay = 1
+    except Exception as error:
+        print("polling stopped:", error)
+    time.sleep(delay)
+    delay = min(delay * 2, 60)

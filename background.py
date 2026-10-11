@@ -1,13 +1,13 @@
 """
-Tiny web server to keep the bot alive on free hosting platforms like Replit.
-Not needed if running the bot on a VPS or local machine.
+Tiny web server for host types that health-check an open port, such as
+Replit's "Web Server" deployment. A Background Worker, a VPS or a local
+machine does not need it: set KEEP_ALIVE=0 there.
 """
 
-from flask import Flask
-from flask import request
+import os
 from threading import Thread
-import time
-import requests
+
+from flask import Flask
 
 
 app = Flask('')
@@ -17,9 +17,12 @@ def home():
   return "I'm alive!!!!!"
 
 def run():
+  # Imported here so the module still loads where waitress is absent and
+  # KEEP_ALIVE=0 means this never runs.
   from waitress import serve
-  serve(app, host='0.0.0.0', port=8080)
+  serve(app, host='0.0.0.0', port=int(os.getenv("PORT", "8080")))
 
 def keep_alive():
-  t = Thread(target=run)
-  t.start()
+  # Daemon, so a dead main thread cannot leave the process lingering while
+  # it still holds the Telegram token.
+  Thread(target=run, daemon=True).start()
