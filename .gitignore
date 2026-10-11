@@ -14,3 +14,10 @@ __pycache__/
 
 # PyCharm
 .idea/
+
+# Vercel
+.vercel
+
+# Local env files; the committed template stays tracked
+.env.local
+!.env.example
