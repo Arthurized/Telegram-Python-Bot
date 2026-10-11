@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twelve projects — all.about.python</title>
+<meta name="description" content="Twelve Python projects for beginners, graded from a twenty-line converter to a database-backed web service, each with what it teaches, the modules it needs and a stretch goal.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/spectral-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plexsans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <a class="wordmark" href="index.html">all<span>.</span><b>about</b><span>.</span>python</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" hidden>Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="history.html">History</a>
+      <a href="faq.html">FAQ</a>
+      <a href="projects.html" aria-current="page">Projects</a>
+      <a href="reference.html">Reference</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="shell hero">
+    <p class="eyebrow">Projects</p>
+    <h1>Twelve projects for beginners</h1>
+    <p class="lede">A path from a twenty-line converter to a database-backed
+      web service. Each project introduces one new idea and reuses everything
+      before it.</p>
+  </section>
+
+  <!-- ========================== HOW TO USE ======================== -->
+  <section class="band band--sunk" aria-labelledby="how-h">
+    <div class="shell split split--plain">
+      <div class="split__main stack">
+        <div>
+          <h2 id="how-h">Before you start</h2>
+          <p class="dek">Four habits that decide whether you learn anything
+            from these.</p>
+        </div>
+        <div>
+          <p><strong>Do not follow a tutorial for the project itself.</strong>
+            Look things up constantly, but if you follow a walkthrough of the
+            whole build you finish with working code and no new ability. The
+            struggle in the middle is the part that teaches.</p>
+          <p><strong>Get an ugly version working first.</strong> One file, no
+            functions, hard-coded values. Make it do the thing once, then
+            clean it up. Designing before anything runs is how beginner
+            projects die at 60% complete.</p>
+          <p><strong>Use <code>git</code> from project one.</strong> Commit
+            when something starts working, before you break it again.</p>
+          <p><strong>Do the stretch goal.</strong> It asks you to change code
+            you already wrote, which is what the job actually consists of.</p>
+        </div>
+        <div>
+          <p style="margin-bottom:0.6rem"><span class="chip chip--1">Starter</span>
+            Standard library only, nothing to install, one file.</p>
+          <p style="margin-bottom:0.6rem"><span class="chip chip--2">Building</span>
+            Several concepts at once. Expect to restructure halfway through.</p>
+          <p><span class="chip chip--3">Stretch</span>
+            Third-party packages, a virtual environment, real documentation to
+            read.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== PROJECTS ========================== -->
+  <section class="band" aria-labelledby="list-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="list-h" style="margin-bottom:0.5rem">The projects</h2>
+
+        <!-- 01 -->
+        <div class="project">
+          <span class="project__num">01</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>Unit converter</h3>
+                <div class="project__meta">
+                  <span class="chip chip--1">Starter</span><span class="chip">~1 hour</span>
+                </div>
+              </div>
+              <p>Convert between kilometres and miles, Celsius and Fahrenheit,
+                kilograms and pounds. Ask what to convert, ask for the number,
+                print the answer. Deliberately small: the first project should
+                finish in one sitting.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> Functions with return
+                values, <code>input()</code> always handing you a string,
+                <code>float()</code> and what happens when the user types
+                nonsense, and a dictionary as a lookup table instead of a tower
+                of <code>if</code> statements.</div>
+              <div class="project__learn"><b>Modules</b> None.</div>
+              <div class="project__learn"><b>Then try</b> Loop until the user
+                quits, surviving every bad input. Add a unit pair and count how
+                many places you had to edit.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="Two boxes exchanging values">
+                <rect x="6" y="17" width="25" height="26" rx="3"/>
+                <rect x="49" y="17" width="25" height="26" rx="3"/>
+                <path d="M35 25h10m-3.5-3.5L45 25l-3.5 3.5"/>
+                <path d="M45 35H35m3.5-3.5L35 35l3.5 3.5"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 02 -->
+        <div class="project">
+          <span class="project__num">02</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>Guess the number</h3>
+                <div class="project__meta">
+                  <span class="chip chip--1">Starter</span><span class="chip">1&ndash;2 hours</span>
+                </div>
+              </div>
+              <p>The program picks a secret number, the player guesses, it
+                answers higher or lower. The first program whose behaviour is
+                not a straight line from top to bottom.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> <code>while</code>
+                loops with a condition you have to reason about, counters,
+                comparison logic, and <code>random</code>. Also your first bug
+                that is not a syntax error.</div>
+              <div class="project__learn"><b>Modules</b> <code>random</code></div>
+              <div class="project__learn"><b>Then try</b> Swap roles and let
+                the program guess by binary search. It should never need more
+                than seven guesses for 1&ndash;100 &mdash; working out why
+                seven is the exercise.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="A hidden number with higher and lower arrows">
+                <rect x="26" y="13" width="28" height="34" rx="3"/>
+                <path d="M35 25a5 5 0 1 1 5 5v3"/>
+                <circle class="fill" cx="40" cy="38" r="2"/>
+                <path d="M12 26l5-6 5 6" class="faint"/>
+                <path d="M58 34l5 6 5-6" class="faint"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 03 -->
+        <div class="project">
+          <span class="project__num">03</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>Password generator</h3>
+                <div class="project__meta">
+                  <span class="chip chip--1">Starter</span><span class="chip">1&ndash;2 hours</span>
+                </div>
+              </div>
+              <p>Generate a strong random password to a requested length, with
+                flags for digits and symbols. The first project where the
+                obvious approach is wrong in a way that matters.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> The
+                <code>string</code> module's character constants and real
+                command-line arguments with <code>argparse</code>. Most
+                importantly: use <code>secrets</code>, not
+                <code>random</code>, which is predictable by design and unfit
+                for anything secret.</div>
+              <div class="project__learn"><b>Modules</b> <code>secrets</code>,
+                <code>string</code>, <code>argparse</code></div>
+              <div class="project__learn"><b>Then try</b> Add a passphrase mode
+                using random words, then work out which of your two modes is
+                actually stronger.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="A key">
+                <circle cx="24" cy="30" r="10"/>
+                <circle class="fill" cx="24" cy="30" r="2.5"/>
+                <path d="M34 30h32"/>
+                <path d="M57 30v8"/>
+                <path d="M66 30v6"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 04 -->
+        <div class="project">
+          <span class="project__num">04</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>Hangman</h3>
+                <div class="project__meta">
+                  <span class="chip chip--1">Starter</span><span class="chip">2&ndash;3 hours</span>
+                </div>
+              </div>
+              <p>Hide a word, show it as underscores, let the player guess
+                letters, track their lives. The first project with real state
+                to keep straight.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> Sets, and why they are
+                right for "letters already guessed". String indexing and
+                joining to render the masked word. Keeping several pieces of
+                state consistent &mdash; the point where you start wanting
+                functions for their own sake.</div>
+              <div class="project__learn"><b>Modules</b> <code>random</code>,
+                plus a text file of words</div>
+              <div class="project__learn"><b>Then try</b> Handle the edge
+                cases: a repeated guess should not cost a life, and a word with
+                the same letter twice should reveal both.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="A gallows and blank letter spaces">
+                <path d="M10 48V12h22"/>
+                <path d="M32 12v7"/>
+                <circle cx="32" cy="24" r="5"/>
+                <path d="M46 48h7m5 0h7m5 0h5" class="faint"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 05 -->
+        <div class="project">
+          <span class="project__num">05</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>A to-do list that remembers</h3>
+                <div class="project__meta">
+                  <span class="chip chip--2">Building</span><span class="chip">3&ndash;4 hours</span>
+                </div>
+              </div>
+              <p>Add tasks, list them, mark them done, delete them &mdash; and
+                have them still be there tomorrow. The persistence is the
+                lesson: the first program that leaves something behind when it
+                exits.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> Reading and writing
+                files, <code>json</code> for turning objects into text and
+                back, and <code>pathlib</code> for paths that work everywhere.
+                Plus the first design question with no right answer: what if
+                the file does not exist, or contains nonsense?</div>
+              <div class="project__learn"><b>Modules</b> <code>json</code>,
+                <code>pathlib</code>, <code>argparse</code></div>
+              <div class="project__learn"><b>Then try</b> Make saving safe
+                against interruption: write a temporary file and rename it over
+                the original, so a crash cannot leave you half a file.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="A checklist">
+                <rect x="13" y="8" width="54" height="44" rx="3"/>
+                <path d="M21 20l3 3 5-6"/><path d="M35 21h22"/>
+                <path d="M21 32l3 3 5-6"/><path d="M35 33h22"/>
+                <rect x="20" y="40" width="8" height="8" rx="1.5" class="faint"/>
+                <path d="M35 44h22" class="faint"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 06 -->
+        <div class="project">
+          <span class="project__num">06</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>Expense analyser</h3>
+                <div class="project__meta">
+                  <span class="chip chip--2">Building</span><span class="chip">3&ndash;4 hours</span>
+                </div>
+              </div>
+              <p>Take a CSV of transactions and report on it: total per
+                category, biggest expenses, which month was worst. The first
+                project that produces an answer you did not already know.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> The <code>csv</code>
+                module and why you should not split on commas yourself.
+                <code>Counter</code> and <code>defaultdict</code> for grouping,
+                and <code>sorted</code> with a <code>key</code>. Plus real data
+                cleaning: inconsistent dates, blank fields, currency symbols
+                glued on.</div>
+              <div class="project__learn"><b>Modules</b> <code>csv</code>,
+                <code>collections</code>, <code>statistics</code>,
+                <code>datetime</code>, <code>decimal</code></div>
+              <div class="project__learn"><b>Then try</b> Use
+                <code>Decimal</code> rather than <code>float</code> for money
+                and find out why &mdash; start by evaluating
+                <code>0.1 + 0.2</code> at a prompt.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="A bar chart">
+                <path d="M12 48h56"/>
+                <path d="M22 48V33"/>
+                <path d="M34 48V20"/>
+                <path d="M46 48V39"/>
+                <path d="M58 48V27"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 07 -->
+        <div class="project">
+          <span class="project__num">07</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>Markdown to HTML converter</h3>
+                <div class="project__meta">
+                  <span class="chip chip--2">Building</span><span class="chip">4&ndash;5 hours</span>
+                </div>
+              </div>
+              <p>Read a Markdown file, write HTML. Headings, bold, italic,
+                links, lists, code blocks &mdash; a useful subset, not the
+                whole specification. You are writing a small translator, which
+                is a different kind of program from everything above.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> Regular expressions
+                and their limits: you will hit a point where nesting defeats a
+                regex and you need to track state line by line. That
+                realisation is worth more than the finished converter. Plus
+                HTML escaping, a security lesson disguised as a formatting
+                one.</div>
+              <div class="project__learn"><b>Modules</b> <code>re</code>,
+                <code>html</code>, <code>pathlib</code>,
+                <code>argparse</code></div>
+              <div class="project__learn"><b>Then try</b> Nested lists, where
+                every naive implementation breaks. Then write tests &mdash;
+                text in, text out makes this the ideal first project to
+                test.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="A document with angle brackets">
+                <path d="M18 52V8h24l14 14v30z"/>
+                <path d="M42 8v14h14"/>
+                <path d="M32 34l-5 5 5 5"/>
+                <path d="M44 34l5 5-5 5"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 08 -->
+        <div class="project">
+          <span class="project__num">08</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>Duplicate file finder</h3>
+                <div class="project__meta">
+                  <span class="chip chip--2">Building</span><span class="chip">2&ndash;3 hours</span>
+                </div>
+              </div>
+              <p>Walk a directory tree and report files with identical
+                contents, whatever they are named. Genuinely useful on a real
+                photo folder, and the first project where the obvious
+                implementation is too slow.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> Recursive directory
+                walking, hashing with <code>hashlib</code>, and reading files
+                in chunks rather than loading a gigabyte into memory. The real
+                lesson is algorithmic: comparing everything with everything is
+                quadratic, so group by size first and hash only within
+                groups.</div>
+              <div class="project__learn"><b>Modules</b> <code>pathlib</code>,
+                <code>hashlib</code>, <code>collections</code></div>
+              <div class="project__learn"><b>Then try</b> Add a
+                <code>--delete</code> flag, then think hard about it: dry run
+                by default, never remove the last copy, always confirm.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="Two identical files">
+                <path d="M8 50V14h15l6 6v30z"/>
+                <path d="M51 46V10h15l6 6v30z"/>
+                <path d="M34 28h12"/>
+                <path d="M34 34h12"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 09 -->
+        <div class="project">
+          <span class="project__num">09</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>Notes app with a window</h3>
+                <div class="project__meta">
+                  <span class="chip chip--2">Building</span><span class="chip">4&ndash;6 hours</span>
+                </div>
+              </div>
+              <p>Project five with an actual interface: a list of notes on one
+                side, an editor on the other, buttons to add and delete.
+                <code>tkinter</code> ships with Python, so there is nothing to
+                install.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> Event-driven
+                programming, which inverts how your programs have worked so
+                far: you no longer control the order of events, you register
+                callbacks and wait. Keeping the interface in step with the
+                underlying data is the problem every graphical application
+                has.</div>
+              <div class="project__learn"><b>Modules</b> <code>tkinter</code>,
+                <code>tkinter.ttk</code>, <code>json</code></div>
+              <div class="project__learn"><b>Then try</b> A search box that
+                filters as you type, and a window that resizes sensibly
+                &mdash; harder than it sounds.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="An application window">
+                <rect x="9" y="11" width="62" height="38" rx="3"/>
+                <path d="M9 22h62"/>
+                <circle class="fill" cx="16" cy="16.5" r="1.8"/>
+                <circle class="fill" cx="23" cy="16.5" r="1.8"/>
+                <path d="M17 31h17M17 40h17"/>
+                <path d="M45 31h18M45 40h12" class="faint"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="project">
+          <span class="project__num">10</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>Weather from the command line</h3>
+                <div class="project__meta">
+                  <span class="chip chip--3">Stretch</span><span class="chip">3&ndash;4 hours</span>
+                </div>
+              </div>
+              <p>Type a city, get the conditions and a short forecast. Your
+                first program that talks to the internet, and the first that
+                needs a virtual environment and an installed package.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> HTTP requests and
+                status codes, digging through a JSON structure you did not
+                design, and the fact that network calls fail. Also API keys,
+                and why they belong in an environment variable rather than in
+                source code that ends up in a public repository.</div>
+              <div class="project__learn"><b>Modules</b>
+                <code>requests</code> (installed), <code>os</code>,
+                <code>argparse</code></div>
+              <div class="project__learn"><b>Then try</b> Cache responses for
+                ten minutes, and handle every failure with a message a human
+                would understand rather than a traceback.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="A cloud and sun">
+                <circle cx="27" cy="19" r="7" class="faint"/>
+                <path d="M26 46h28a9 9 0 0 0-3-17.5A13 13 0 0 0 26 25a10.5 10.5 0 0 0 0 21z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="project">
+          <span class="project__num">11</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>A Telegram bot</h3>
+                <div class="project__meta">
+                  <span class="chip chip--3">Stretch</span><span class="chip">5&ndash;7 hours</span>
+                </div>
+              </div>
+              <p>A bot that answers commands in a chat. Start with an echo,
+                then give it something real to do. The first project other
+                people can actually use, which changes how carefully you
+                handle bad input.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> Working against a
+                substantial third-party library and its documentation,
+                asynchronous code, long-running processes that must not fall
+                over, and per-user state. Also deployment: a bot on your laptop
+                stops when you close the lid.</div>
+              <div class="project__learn"><b>Modules</b>
+                <code>python-telegram-bot</code> or <code>aiogram</code>
+                (installed), <code>logging</code>, <code>sqlite3</code></div>
+              <div class="project__learn"><b>Then try</b> Add a command built
+                from an earlier project. Whether that code was reusable tells
+                you something about how it was written.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="Two chat bubbles">
+                <path d="M8 9h40v22H22l-9 7v-7H8z"/>
+                <path d="M33 33h39v18H52l-8 6v-6H33z" class="faint"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="project">
+          <span class="project__num">12</span>
+          <div class="project__top">
+            <div>
+              <div class="project__head">
+                <h3>URL shortener</h3>
+                <div class="project__meta">
+                  <span class="chip chip--3">Stretch</span><span class="chip">6&ndash;8 hours</span>
+                </div>
+              </div>
+              <p>Paste a long URL, get a short one, and visiting it redirects.
+                A page listing your links with hit counts. A complete
+                application &mdash; web layer, database, interface &mdash; and
+                a reasonable thing to show someone.</p>
+              <details class="fold">
+                <summary>Details</summary>
+                <div class="fold__body">
+              <div class="project__learn"><b>Teaches</b> How a web framework
+                maps URLs to functions, <code>GET</code> versus
+                <code>POST</code>, redirects and status codes, and templates.
+                Plus SQL and parameterised queries, because this is where you
+                learn what SQL injection is by deliberately not writing
+                it.</div>
+              <div class="project__learn"><b>Modules</b> <code>fastapi</code>
+                or <code>flask</code> (installed), <code>sqlite3</code></div>
+              <div class="project__learn"><b>Then try</b> Reject anything that
+                is not <code>http</code> or <code>https</code>, add rate
+                limiting, then deploy it and watch the access log. The first
+                thing a public URL attracts is automated probes.</div>
+                </div>
+              </details>
+            </div>
+            <div class="project__art">
+              <svg viewBox="0 0 80 60" role="img" aria-label="A long link shortened">
+                <path d="M9 19h54"/>
+                <path d="M57 13l6 6-6 6"/>
+                <path d="M9 41h20" class="faint"/>
+                <path d="M23 35l6 6-6 6" class="faint"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== AFTERWARDS ======================== -->
+  <section class="band band--sunk" aria-labelledby="after-h">
+    <div class="shell split split--plain">
+      <div class="split__main stack">
+        <div>
+          <h2 id="after-h">What to do next</h2>
+          <p class="dek">You will have written something in every major shape
+            a Python program takes: script, file-processor, data analysis,
+            desktop application, API client, long-running service, web app.</p>
+        </div>
+        <div>
+          <p><strong>Pick a direction and go deep.</strong> Data analysis, web
+            backends, automation, or machine learning. All four reuse
+            everything above.</p>
+          <p><strong>Read code better than yours.</strong> Pick a small,
+            well-regarded package you have used and read it &mdash; not to
+            learn what it does, but to see how people structure Python when
+            strangers will maintain it.</p>
+          <p><strong>Go back to project one and rewrite it.</strong> An hour's
+            work, and the clearest possible measure of what you picked up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= CTA ============================ -->
+  <section class="band dark" aria-labelledby="cta-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <p class="eyebrow">Companion bot</p>
+        <h2 id="cta-h">Stuck on one of them?</h2>
+        <p style="margin-top:1rem;max-width:52ch">That is the intended
+          experience. When you need a hand, ask the Telegram bot, or check the
+          reference tables for the thing you half-remember.</p>
+        <div class="btn-row">
+          <a class="btn btn--onDark" href="reference.html">Reference tables <span class="btn__arrow">&rarr;</span></a>
+          <a class="btn btn--ghost" href="https://t.me/Ur_all_aboutPython_bot">Open the bot</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div>
+        <p class="foot__mark">all<span>.</span>about<span>.</span>python</p>
+        <p style="margin-top:0.6rem;max-width:34ch">Everything about Python:
+          history, questions, projects and reference tables.</p>
+      </div>
+      <div>
+        <h4>Sections</h4>
+        <ul>
+          <li><a href="history.html">History</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Official</h4>
+        <ul>
+          <li><a href="https://docs.python.org/3/">Documentation</a></li>
+          <li><a href="https://docs.python.org/3/library/">Standard library</a></li>
+          <li><a href="https://pypi.org/">PyPI</a></li>
+          <li><a href="https://packaging.python.org/">Packaging guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ask</h4>
+        <ul>
+          <li><a href="https://t.me/Ur_all_aboutPython_bot">Telegram bot</a></li>
+          <li><a href="index.html#resources">Learning resources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <span>Python is a trademark of the Python Software Foundation</span>
+      <span>Set in Spectral &amp; IBM Plex</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

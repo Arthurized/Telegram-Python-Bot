@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>History of Python — all.about.python</title>
+<meta name="description" content="How Python went from a Christmas-break project at a Dutch research institute in 1989 to the most-used language on GitHub: a short timeline, the Zen of Python, and how the language is governed.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/spectral-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plexsans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <a class="wordmark" href="index.html">all<span>.</span><b>about</b><span>.</span>python</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" hidden>Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="history.html" aria-current="page">History</a>
+      <a href="faq.html">FAQ</a>
+      <a href="projects.html">Projects</a>
+      <a href="reference.html">Reference</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="shell hero">
+    <p class="eyebrow">History</p>
+    <h1>The history of Python</h1>
+    <p class="lede">Python was started by one person over a Christmas break in
+      1989. Thirty-five years later it is the most-used language on GitHub.
+      This is how that happened.</p>
+  </section>
+
+  <!-- ========================== TIMELINE ========================== -->
+  <section class="band" aria-labelledby="tl-h">
+    <div class="shell split">
+      <div class="split__rail">
+        <span class="rail-num">01</span>
+        <span class="rail-label">Timeline</span>
+      </div>
+      <div class="split__main">
+        <h2 id="tl-h" style="margin-bottom:1.5rem">Timeline</h2>
+
+        <ol class="timeline">
+          <li class="tl">
+            <span class="tl__year">1980s</span>
+            <div class="tl__body">
+              <h3>A teaching language called ABC</h3>
+              <p>Guido van Rossum worked at CWI<sup><a href="#fn-cwi" id="fnref-cwi" aria-label="Footnote 1">1</a></sup>
+                in Amsterdam on ABC, a language for teaching people who were
+                not programmers. He liked that readable layout was enforced
+                rather than suggested, and was frustrated that ABC could not be
+                extended or reach the operating system underneath. Those
+                frustrations became a list of requirements.</p>
+            </div>
+          </li>
+          <li class="tl tl--major">
+            <span class="tl__year">Dec 1989</span>
+            <div class="tl__body">
+              <h3>Written over a Christmas break</h3>
+              <p>With the CWI offices shut for the holidays, van Rossum started
+                an interpreter for the language he had been sketching. He named
+                it after <em>Monty Python's Flying Circus</em>, wanting
+                something short and slightly irreverent. The snake came later,
+                and only because of the name.</p>
+            </div>
+          </li>
+          <li class="tl tl--major">
+            <span class="tl__year">Feb 1991</span>
+            <div class="tl__body">
+              <h3>Version 0.9.0, posted to a newsgroup</h3>
+              <p>The first public release went out by hand to
+                <code>alt.sources</code>, split across nine posts because of
+                message size limits. It already had functions, modules,
+                exceptions, classes with inheritance, and the core types. Read
+                it today and the syntax is almost entirely familiar.</p>
+            </div>
+          </li>
+          <li class="tl">
+            <span class="tl__year">Jan 1994</span>
+            <div class="tl__body">
+              <h3>Version 1.0</h3>
+              <p>Added <code>lambda</code>, <code>map()</code>,
+                <code>filter()</code> and <code>reduce()</code>, contributed by
+                users who missed functional programming. Python has been
+                ambivalent about all four ever since; <code>reduce()</code> was
+                moved out of the built-ins in Python 3.</p>
+            </div>
+          </li>
+          <li class="tl tl--major">
+            <span class="tl__year">Oct 2000</span>
+            <div class="tl__body">
+              <h3>2.0 &mdash; list comprehensions and Unicode</h3>
+              <p>List comprehensions arrived, borrowed from Haskell, and became
+                the most characteristically Python construct there is. Unicode
+                support landed, as did a garbage collector that could collect
+                reference cycles. The PEP process was formalised the same
+                year, and the Python Software Foundation followed in 2001 to
+                hold the licence and the intellectual property.</p>
+            </div>
+          </li>
+          <li class="tl tl--major">
+            <span class="tl__year">Dec 2008</span>
+            <div class="tl__body">
+              <h3>3.0 &mdash; breaking compatibility on purpose</h3>
+              <p>A deliberate, one-time break to fix accumulated design
+                mistakes. <code>print</code> became a function; text and binary
+                data were separated into <code>str</code> and
+                <code>bytes</code>, with <code>str</code> Unicode by default;
+                <code>/</code> started doing true division.</p>
+              <p>It was the right set of changes and a painful decade of
+                migration, and it is now the cautionary tale cited whenever a
+                language proposes a major version bump. Python 2.7, released in
+                2010, was the last of the old line.</p>
+            </div>
+          </li>
+          <li class="tl">
+            <span class="tl__year">2014&ndash;16</span>
+            <div class="tl__body">
+              <h3>pip, async and f-strings</h3>
+              <p>Three releases that shaped how Python is written now. 3.4
+                bundled <code>pip</code>, so installing packages stopped being
+                a tutorial's first obstacle. 3.5 gave asynchronous code real
+                syntax with <code>async</code> and <code>await</code>, and
+                defined a standard notation for type hints. 3.6 introduced
+                f-strings.</p>
+            </div>
+          </li>
+          <li class="tl tl--major">
+            <span class="tl__year">Jul 2018</span>
+            <div class="tl__body">
+              <h3>Guido van Rossum steps down</h3>
+              <p>After a bruising public argument over the assignment
+                expression <code>:=</code>, van Rossum resigned as Benevolent
+                Dictator For Life, citing the tone of the debate, and
+                deliberately named no successor. Core developers voted for an
+                elected five-person Steering Council, which took office in
+                February 2019.</p>
+            </div>
+          </li>
+          <li class="tl">
+            <span class="tl__year">Jan 2020</span>
+            <div class="tl__body">
+              <h3>Python 2 reaches end of life</h3>
+              <p>Support formally ended on 1 January 2020, with a final
+                tidying-up release in April. Twelve years after 3.0 shipped,
+                the split was over.</p>
+            </div>
+          </li>
+          <li class="tl">
+            <span class="tl__year">Oct 2021</span>
+            <div class="tl__body">
+              <h3>3.10 &mdash; structural pattern matching</h3>
+              <p><code>match</code>/<code>case</code> is considerably more than
+                a switch statement, because it destructures. Less glamorous and
+                more useful day to day: error messages were rewritten to say
+                what was actually wrong and point at the right character.</p>
+            </div>
+          </li>
+          <li class="tl tl--major">
+            <span class="tl__year">Oct 2022</span>
+            <div class="tl__body">
+              <h3>3.11 &mdash; a faster interpreter</h3>
+              <p>The first release of the Faster CPython effort, benchmarking
+                roughly 1.25&times; faster than 3.10 overall. Tracebacks began
+                pointing at the exact expression that failed rather than just
+                the line.</p>
+            </div>
+          </li>
+          <li class="tl tl--major">
+            <span class="tl__year">Oct 2024</span>
+            <div class="tl__body">
+              <h3>3.13 &mdash; the lock becomes optional</h3>
+              <p>An experimental build shipped in which the global interpreter
+                lock can be switched off, making genuine multi-core threading
+                possible in pure Python for the first time. An experimental
+                just-in-time compiler arrived alongside it.</p>
+            </div>
+          </li>
+          <li class="tl tl--major">
+            <span class="tl__year">Oct 2025</span>
+            <div class="tl__body">
+              <h3>3.14 &mdash; free-threading supported</h3>
+              <p>The free-threaded build moved from experimental to officially
+                supported, which is the real milestone: something you can plan
+                a project around rather than an experiment to watch.</p>
+            </div>
+          </li>
+          <li class="tl">
+            <span class="tl__year">Oct 2026</span>
+            <div class="tl__body">
+              <h3>3.15</h3>
+              <p>Due on the annual cadence. This page was written from
+                information available in mid-2026, so check
+                <a href="https://devguide.python.org/versions/">the official
+                version table</a> for what is current and what is still
+                supported.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="note" style="margin-top:2rem">
+          <b>A common mix-up</b>
+          <p><em>Python 3000</em>, or <em>Py3k</em>, was never a released
+            version. It was the long-running codename for the cleanup release
+            that eventually shipped as 3.0 in December 2008 &mdash; the "3000"
+            was a joke about how far off it was. The first released version was
+            0.9.0, in February 1991.</p>
+        </div>
+
+        <ol class="sources" style="margin-top:2rem">
+          <li id="fn-cwi">CWI is the Centrum Wiskunde &amp; Informatica, the
+            Dutch national research institute for mathematics and computer
+            science, in Amsterdam. It is also where the Python interpreter was
+            first written. <a href="#fnref-cwi">Back to the text</a></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ ZEN ============================= -->
+  <section class="band dark" aria-labelledby="zen-h">
+    <div class="shell split">
+      <div class="split__rail">
+        <span class="rail-num">02</span>
+        <span class="rail-label">Design</span>
+      </div>
+      <div class="split__main stack">
+        <div>
+          <p class="eyebrow">PEP 20</p>
+          <h2 id="zen-h">The Zen of Python</h2>
+          <p style="margin-top:1rem">In 1999 the core developer Tim Peters
+            wrote down the aesthetic principles he thought the language was
+            built on. They were published as PEP 20 and planted inside Python
+            itself as an easter egg: type <code>import this</code> at any
+            prompt to read all nineteen. Three of them do most of the real
+            work.</p>
+        </div>
+
+        <ul class="aphorisms">
+          <li>&ldquo;Explicit is better than implicit.&rdquo;
+            <span>Python would rather make you write the step out than guess
+              what you meant. It is why there is no implicit coercion between
+              strings and numbers, and why <code>self</code> is an ordinary
+              visible parameter.</span></li>
+          <li>&ldquo;Readability counts.&rdquo;
+            <span>The justification for the most divisive feature in the
+              language: indentation is syntax. You cannot write Python whose
+              layout lies about its structure, because the layout
+              <em>is</em> the structure.</span></li>
+          <li>&ldquo;Errors should never pass silently.&rdquo;
+            <span>Python raises rather than returning a quiet
+              <code>null</code> you might not check. A program that stops
+              loudly beats one that carries on with nonsense in a
+              variable.</span></li>
+        </ul>
+
+        <p>Peters wrote nineteen and left the twentieth to van Rossum, who
+          never filled it in; the joke is that the list will never be
+          finished. Read them in full in
+          <a href="https://peps.python.org/pep-0020/">PEP 20</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= GOVERNANCE ========================= -->
+  <section class="band band--sunk" aria-labelledby="gov-h">
+    <div class="shell split">
+      <div class="split__rail">
+        <span class="rail-num">03</span>
+        <span class="rail-label">Governance</span>
+      </div>
+      <div class="split__main stack">
+        <div>
+          <h2 id="gov-h">How Python is governed</h2>
+          <p class="dek">Python has no owning company, and nobody can simply
+            decide to add a feature.</p>
+        </div>
+
+        <div>
+          <p>Every significant change goes through a <strong>Python
+            Enhancement Proposal</strong>: a numbered design document stating
+            what is proposed, why, which alternatives were rejected, and how
+            backwards compatibility will be handled. Anyone may write one. A
+            proposal moves from draft through public discussion to accepted or
+            rejected, and becomes final once it ships. Rejected PEPs are kept
+            and published, which makes the index an unusually honest archive
+            &mdash; you can read exactly why some much-requested feature is not
+            in the language.</p>
+        </div>
+
+        <div class="note">
+          <b>Worth reading once</b>
+          <p>The <a href="https://peps.python.org/">PEP index</a> is the
+            primary source for every claim on this page. If Python does
+            something that looks strange, searching the PEPs almost always
+            turns up a document explaining why, and naming the alternatives
+            that lost.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= CTA ============================ -->
+  <section class="band dark" aria-labelledby="next-h">
+    <div class="shell split">
+      <div class="split__rail">
+        <span class="rail-num">04</span>
+        <span class="rail-label">Next</span>
+      </div>
+      <div class="split__main">
+        <p class="eyebrow">Companion bot</p>
+        <h2 id="next-h">Next</h2>
+        <p style="margin-top:1rem;max-width:52ch">Ask the Telegram bot, or go
+          straight to the twenty-four most common Python questions answered
+          with working code.</p>
+        <div class="btn-row">
+          <a class="btn btn--onDark" href="faq.html">Read the FAQ <span class="btn__arrow">&rarr;</span></a>
+          <a class="btn btn--ghost" href="https://t.me/Ur_all_aboutPython_bot">Open the bot</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div>
+        <p class="foot__mark">all<span>.</span>about<span>.</span>python</p>
+        <p style="margin-top:0.6rem;max-width:34ch">Everything about Python:
+          history, questions, projects and reference tables.</p>
+      </div>
+      <div>
+        <h4>Sections</h4>
+        <ul>
+          <li><a href="history.html">History</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Official</h4>
+        <ul>
+          <li><a href="https://www.python.org/">python.org</a></li>
+          <li><a href="https://docs.python.org/3/">Documentation</a></li>
+          <li><a href="https://peps.python.org/">PEP index</a></li>
+          <li><a href="https://devguide.python.org/versions/">Release table</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ask</h4>
+        <ul>
+          <li><a href="https://t.me/Ur_all_aboutPython_bot">Telegram bot</a></li>
+          <li><a href="index.html#resources">Learning resources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <span>Python is a trademark of the Python Software Foundation</span>
+      <span>Set in Spectral &amp; IBM Plex</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

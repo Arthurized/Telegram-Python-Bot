@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Python reference — all.about.python</title>
+<meta name="description" content="Python lookup tables on one page: built-in types, operator precedence, truth value testing, string methods, format specifiers, the exception hierarchy, keywords, release history and everyday commands.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/spectral-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plexsans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <a class="wordmark" href="index.html">all<span>.</span><b>about</b><span>.</span>python</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" hidden>Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="history.html">History</a>
+      <a href="faq.html">FAQ</a>
+      <a href="projects.html">Projects</a>
+      <a href="reference.html" aria-current="page">Reference</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="shell hero">
+    <p class="eyebrow">Reference</p>
+    <h1>Python reference</h1>
+    <p class="lede">Nine lookup tables. Written against Python&nbsp;3.12 and
+      later; anything version-specific says so in the notes.</p>
+    <nav class="jump" aria-label="On this page">
+      <a href="#types">Types</a>
+      <a href="#precedence">Precedence</a>
+      <a href="#truth-values">Truth values</a>
+      <a href="#strings">String methods</a>
+      <a href="#format">Format specs</a>
+      <a href="#exceptions">Exceptions</a>
+      <a href="#keywords">Keywords</a>
+      <a href="#releases">Releases</a>
+      <a href="#commands">Commands</a>
+    </nav>
+  </section>
+
+  <!-- ============================ TYPES =========================== -->
+  <section class="band" id="types" aria-labelledby="types-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="types-h" style="margin-bottom:1rem">Built-in types</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Literal</th>
+                <th scope="col">Mutable</th>
+                <th scope="col">Ordered</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono-cell">int</td><td class="mono-cell">42</td><td>No</td><td>&mdash;</td><td>Unbounded; no overflow.</td></tr>
+              <tr><td class="mono-cell">float</td><td class="mono-cell">3.14</td><td>No</td><td>&mdash;</td><td>64-bit. Use <code>decimal</code> for money.</td></tr>
+              <tr><td class="mono-cell">complex</td><td class="mono-cell">2+3j</td><td>No</td><td>&mdash;</td><td>Real and imaginary parts.</td></tr>
+              <tr><td class="mono-cell">bool</td><td class="mono-cell">True</td><td>No</td><td>&mdash;</td><td>Subclass of <code>int</code>.</td></tr>
+              <tr><td class="mono-cell">str</td><td class="mono-cell">"text"</td><td>No</td><td>Yes</td><td>Unicode. Indexing gives a 1-character str.</td></tr>
+              <tr><td class="mono-cell">bytes</td><td class="mono-cell">b"raw"</td><td>No</td><td>Yes</td><td>Indexing gives an int 0&ndash;255.</td></tr>
+              <tr><td class="mono-cell">bytearray</td><td class="mono-cell">bytearray(b"x")</td><td>Yes</td><td>Yes</td><td>Mutable <code>bytes</code>.</td></tr>
+              <tr><td class="mono-cell">list</td><td class="mono-cell">[1, 2]</td><td>Yes</td><td>Yes</td><td>The default sequence.</td></tr>
+              <tr><td class="mono-cell">tuple</td><td class="mono-cell">(1, 2)</td><td>No</td><td>Yes</td><td>Hashable, so usable as a dict key.</td></tr>
+              <tr><td class="mono-cell">range</td><td class="mono-cell">range(10)</td><td>No</td><td>Yes</td><td>Computed as you iterate.</td></tr>
+              <tr><td class="mono-cell">dict</td><td class="mono-cell">{"a": 1}</td><td>Yes</td><td>Yes</td><td>Insertion-ordered since 3.7.</td></tr>
+              <tr><td class="mono-cell">set</td><td class="mono-cell">{1, 2}</td><td>Yes</td><td>No</td><td><code>{}</code> is an empty dict, not a set.</td></tr>
+              <tr><td class="mono-cell">frozenset</td><td class="mono-cell">frozenset({1})</td><td>No</td><td>No</td><td>Hashable, so it can nest in a set.</td></tr>
+              <tr><td class="mono-cell">NoneType</td><td class="mono-cell">None</td><td>No</td><td>&mdash;</td><td>One value. Test with <code>is None</code>.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note" style="margin-top:1.25rem">
+          <b>Also worth knowing</b>
+          <p>From <code>collections</code>: <code>Counter</code>,
+            <code>defaultdict</code>, <code>deque</code>,
+            <code>namedtuple</code>. From <code>dataclasses</code>:
+            <code>@dataclass</code>, which writes the boilerplate of a record
+            class for you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== PRECEDENCE ======================== -->
+  <section class="band" id="precedence" aria-labelledby="prec-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="prec-h" style="margin-bottom:1rem">Operator precedence</h2>
+        <p class="dek" style="margin-bottom:1rem">Tightest binding at the top.
+          Same row binds equally, applied left to right unless noted.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">#</th><th scope="col">Operator</th><th scope="col">Meaning</th><th scope="col">Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="t-rank">1</td><td class="mono-cell">(…) [—] {…}</td><td>Parentheses and displays</td><td>Binds tightest.</td></tr>
+              <tr><td class="t-rank">2</td><td class="mono-cell">x[i] f(…) x.attr</td><td>Subscription, call, attribute</td><td>Left to right.</td></tr>
+              <tr><td class="t-rank">3</td><td class="mono-cell">await x</td><td>Await</td><td>Only inside <code>async def</code>.</td></tr>
+              <tr><td class="t-rank">4</td><td class="mono-cell">**</td><td>Exponentiation</td><td><strong>Right</strong>-associative: <code>2**3**2</code> is 512. Tighter than unary minus on its left, so <code>-2**2</code> is &minus;4.</td></tr>
+              <tr><td class="t-rank">5</td><td class="mono-cell">+x &nbsp;-x &nbsp;~x</td><td>Unary</td><td>Looser than <code>**</code>.</td></tr>
+              <tr><td class="t-rank">6</td><td class="mono-cell">* @ / // %</td><td>Multiplicative</td><td><code>/</code> always gives a float.</td></tr>
+              <tr><td class="t-rank">7</td><td class="mono-cell">+ &nbsp;-</td><td>Additive</td><td><code>+</code> also concatenates.</td></tr>
+              <tr><td class="t-rank">8</td><td class="mono-cell">&lt;&lt; &gt;&gt;</td><td>Bit shifts</td><td>Looser than arithmetic.</td></tr>
+              <tr><td class="t-rank">9</td><td class="mono-cell">&amp;</td><td>Bitwise AND, set intersection</td><td></td></tr>
+              <tr><td class="t-rank">10</td><td class="mono-cell">^</td><td>Bitwise XOR</td><td>Not exponentiation.</td></tr>
+              <tr><td class="t-rank">11</td><td class="mono-cell">|</td><td>Bitwise OR, union, dict merge, type union</td><td>Dict merge 3.9+, <code>int | None</code> 3.10+.</td></tr>
+              <tr><td class="t-rank">12</td><td class="mono-cell">in &nbsp;is &nbsp;&lt; &lt;= &gt; &gt;= != ==</td><td>Membership, identity, comparison</td><td>These <strong>chain</strong>: <code>1 &lt; x &lt; 10</code> evaluates <code>x</code> once.</td></tr>
+              <tr><td class="t-rank">13</td><td class="mono-cell">not x</td><td>Boolean NOT</td><td>Looser than comparison.</td></tr>
+              <tr><td class="t-rank">14</td><td class="mono-cell">and</td><td>Boolean AND</td><td>Short-circuits; returns an operand.</td></tr>
+              <tr><td class="t-rank">15</td><td class="mono-cell">or</td><td>Boolean OR</td><td>Short-circuits.</td></tr>
+              <tr><td class="t-rank">16</td><td class="mono-cell">x if c else y</td><td>Conditional expression</td><td>Condition evaluated first.</td></tr>
+              <tr><td class="t-rank">17</td><td class="mono-cell">lambda</td><td>Anonymous function</td><td>Body extends as far right as possible.</td></tr>
+              <tr><td class="t-rank">18</td><td class="mono-cell">:=</td><td>Assignment expression</td><td>Loosest of all; usually needs parentheses.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== TRUTH VALUE TESTING =================== -->
+  <section class="band" id="truth-values" aria-labelledby="truth-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="truth-h" style="margin-bottom:1rem">Truth value testing</h2>
+        <p class="dek" style="margin-bottom:1rem">Any object can be used in a
+          condition. These are <em>all</em> the values that test as false;
+          everything else tests as true, including <code>"0"</code>,
+          <code>"False"</code>, <code>-1</code> and <code>[0]</code>. You will
+          also hear these called &ldquo;falsy&rdquo; and
+          &ldquo;truthy&rdquo; &mdash; common jargon, though the official
+          documentation says <em>truth value testing</em>.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Value</th><th scope="col">Kind</th></tr></thead>
+            <tbody>
+              <tr><td class="mono-cell">False</td><td>The boolean</td></tr>
+              <tr><td class="mono-cell">None</td><td>The null object</td></tr>
+              <tr><td class="mono-cell">0 &nbsp; 0.0 &nbsp; 0j &nbsp; Decimal(0)</td><td>Any numeric zero</td></tr>
+              <tr><td class="mono-cell">"" &nbsp; b""</td><td>Empty text or bytes</td></tr>
+              <tr><td class="mono-cell">() &nbsp; [] &nbsp; {} &nbsp; set() &nbsp; range(0)</td><td>Any empty collection</td></tr>
+              <tr><td class="mono-cell">obj</td><td>Whose <code>__bool__</code> returns <code>False</code> or <code>__len__</code> returns 0</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note" style="margin-top:1.25rem">
+          <b>The trap</b>
+          <p><code>if not value:</code> is true for an empty list
+            <em>and</em> <code>None</code> <em>and</em> <code>0</code>. When
+            those mean different things, test with
+            <code>if value is None:</code>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= STRING METHODS ======================= -->
+  <section class="band" id="strings" aria-labelledby="str-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="str-h" style="margin-bottom:1rem">String methods</h2>
+        <p class="dek" style="margin-bottom:1rem">Strings are immutable: every
+          one of these returns a new string.</p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Method</th><th scope="col">Does</th><th scope="col">Example</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono-cell">strip / rstrip / lstrip</td><td>Remove leading and trailing characters; whitespace by default</td><td class="mono-cell">" hi ".strip() &rarr; 'hi'</td></tr>
+              <tr><td class="mono-cell">removeprefix / removesuffix</td><td>Remove an exact affix once. 3.9+</td><td class="mono-cell">"a.py".removesuffix(".py") &rarr; 'a'</td></tr>
+              <tr><td class="mono-cell">split / rsplit</td><td>Split into a list; on any whitespace run if no separator</td><td class="mono-cell">"a,b".split(",") &rarr; ['a','b']</td></tr>
+              <tr><td class="mono-cell">splitlines()</td><td>Split on line boundaries, handling all three endings</td><td class="mono-cell">"a\nb".splitlines() &rarr; ['a','b']</td></tr>
+              <tr><td class="mono-cell">join(iterable)</td><td>Join strings with this one between them</td><td class="mono-cell">", ".join(["a","b"]) &rarr; 'a, b'</td></tr>
+              <tr><td class="mono-cell">replace(old, new)</td><td>Replace occurrences, all unless limited</td><td class="mono-cell">"aa".replace("a","b",1) &rarr; 'ba'</td></tr>
+              <tr><td class="mono-cell">startswith / endswith</td><td>Test an affix; accepts a tuple</td><td class="mono-cell">"a.py".endswith((".py",".pyi")) &rarr; True</td></tr>
+              <tr><td class="mono-cell">find / index</td><td>Position of a substring; <code>find</code> gives &minus;1, <code>index</code> raises</td><td class="mono-cell">"abc".find("z") &rarr; -1</td></tr>
+              <tr><td class="mono-cell">upper / lower / title</td><td>Change case</td><td class="mono-cell">"ab cd".title() &rarr; 'Ab Cd'</td></tr>
+              <tr><td class="mono-cell">zfill / center / ljust</td><td>Pad to a width</td><td class="mono-cell">"7".zfill(3) &rarr; '007'</td></tr>
+              <tr><td class="mono-cell">isdigit / isalpha</td><td>Test the whole string; false for <code>""</code></td><td class="mono-cell">"12".isdigit() &rarr; True</td></tr>
+              <tr><td class="mono-cell">encode(encoding)</td><td>Convert to <code>bytes</code></td><td class="mono-cell">"é".encode("utf-8")</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== FORMAT ============================ -->
+  <section class="band" id="format" aria-labelledby="fmt-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="fmt-h" style="margin-bottom:1rem">Format specifiers</h2>
+        <p class="dek" style="margin-bottom:1rem">Everything after the colon
+          inside <code>{…}</code>, in order:
+          <code class="mono-cell">[[fill]align][sign][#][0][width][grouping][.precision][type]</code></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th scope="col">Field</th><th scope="col">Example</th><th scope="col">Result</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Align</td><td class="mono-cell">f"{'x':&gt;5}"</td><td class="mono-cell">'&nbsp;&nbsp;&nbsp;&nbsp;x'</td></tr>
+              <tr><td>Fill and align</td><td class="mono-cell">f"{7:*^7}"</td><td class="mono-cell">'***7***'</td></tr>
+              <tr><td>Sign</td><td class="mono-cell">f"{7:+}"</td><td class="mono-cell">'+7'</td></tr>
+              <tr><td>Zero pad</td><td class="mono-cell">f"{42:06}"</td><td class="mono-cell">'000042'</td></tr>
+              <tr><td>Grouping</td><td class="mono-cell">f"{1234567:,}"</td><td class="mono-cell">'1,234,567'</td></tr>
+              <tr><td>Fixed point</td><td class="mono-cell">f"{3.14159:.2f}"</td><td class="mono-cell">'3.14'</td></tr>
+              <tr><td>Percentage</td><td class="mono-cell">f"{0.0847:.1%}"</td><td class="mono-cell">'8.5%'</td></tr>
+              <tr><td>Exponent</td><td class="mono-cell">f"{12345:.2e}"</td><td class="mono-cell">'1.23e+04'</td></tr>
+              <tr><td>Integer bases</td><td class="mono-cell">f"{255:x}" / f"{255:#b}"</td><td class="mono-cell">'ff' / '0b11111111'</td></tr>
+              <tr><td>Dates</td><td class="mono-cell">f"{now:%Y-%m-%d}"</td><td class="mono-cell">'2026-10-10'</td></tr>
+              <tr><td>Nested width</td><td class="mono-cell">f"{v:.{n}f}"</td><td class="mono-cell">precision from <code>n</code></td></tr>
+              <tr><td>Conversion</td><td class="mono-cell">f"{'hi'!r}"</td><td class="mono-cell">"'hi'"</td></tr>
+              <tr><td>Debug form</td><td class="mono-cell">f"{1+1=}"</td><td class="mono-cell">'1+1=2'</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note" style="margin-top:1.25rem">
+          <b>Two handy ones</b>
+          <p><code>!r</code> gives the <code>repr</code>, which quotes strings
+            and makes "empty or whitespace?" visible in error messages. A
+            trailing <code>=</code> prints the expression alongside its value,
+            replacing most hand-written debugging prints.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== EXCEPTIONS ========================== -->
+  <section class="band" id="exceptions" aria-labelledby="exc-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="exc-h" style="margin-bottom:1rem">Exception hierarchy</h2>
+        <p class="dek" style="margin-bottom:1rem">Catching a parent catches
+          its children. This is why <code>except Exception</code> does not
+          catch <kbd>Ctrl-C</kbd> &mdash; that sits outside it, deliberately.</p>
+        <div class="snippet">
+          <div class="snippet__bar"><span>Built-in exceptions, abridged</span></div>
+<pre><code><span class="f">BaseException</span>
+ ├── <span class="f">SystemExit</span>              <span class="c"># sys.exit()</span>
+ ├── <span class="f">KeyboardInterrupt</span>       <span class="c"># Ctrl-C</span>
+ └── <span class="f">Exception</span>               <span class="c"># catch THIS, not BaseException</span>
+      ├── <span class="f">ArithmeticError</span>
+      │    └── <span class="f">ZeroDivisionError</span>
+      ├── <span class="f">AttributeError</span>     <span class="c"># obj.missing</span>
+      ├── <span class="f">ImportError</span>
+      │    └── <span class="f">ModuleNotFoundError</span>
+      ├── <span class="f">LookupError</span>
+      │    ├── <span class="f">IndexError</span>    <span class="c"># seq[99]</span>
+      │    └── <span class="f">KeyError</span>      <span class="c"># d["missing"]</span>
+      ├── <span class="f">NameError</span>          <span class="c"># usually a typo</span>
+      ├── <span class="f">OSError</span>            <span class="c"># anything the OS refused</span>
+      │    ├── <span class="f">FileNotFoundError</span>
+      │    ├── <span class="f">PermissionError</span>
+      │    ├── <span class="f">TimeoutError</span>
+      │    └── <span class="f">ConnectionError</span>
+      ├── <span class="f">RuntimeError</span>
+      │    └── <span class="f">NotImplementedError</span>
+      ├── <span class="f">StopIteration</span>      <span class="c"># next() at the end</span>
+      ├── <span class="f">SyntaxError</span>
+      │    └── <span class="f">IndentationError</span>
+      │         └── <span class="f">TabError</span> <span class="c"># mixed tabs and spaces</span>
+      ├── <span class="f">TypeError</span>          <span class="c"># wrong type</span>
+      ├── <span class="f">ValueError</span>         <span class="c"># right type, wrong value</span>
+      │    └── <span class="f">UnicodeDecodeError</span>
+      └── <span class="f">Warning</span>
+           └── <span class="f">DeprecationWarning</span></code></pre>
+        </div>
+        <p><code>ExceptionGroup</code>, added in 3.11, carries several
+          exceptions at once &mdash; raised by <code>asyncio</code> task
+          groups and caught with <code>except*</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= KEYWORDS =========================== -->
+  <section class="band" id="keywords" aria-labelledby="kw-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="kw-h" style="margin-bottom:1rem">Keywords</h2>
+        <p class="dek" style="margin-bottom:1rem">Thirty-five reserved words,
+          which cannot be used as names. That is the whole vocabulary you must
+          learn; everything else is a function, method or module.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Group</th><th scope="col">Keywords</th></tr></thead>
+            <tbody>
+              <tr><td>Values</td><td class="mono-cell">True &nbsp; False &nbsp; None</td></tr>
+              <tr><td>Logic</td><td class="mono-cell">and &nbsp; or &nbsp; not &nbsp; in &nbsp; is</td></tr>
+              <tr><td>Branching</td><td class="mono-cell">if &nbsp; elif &nbsp; else</td></tr>
+              <tr><td>Loops</td><td class="mono-cell">for &nbsp; while &nbsp; break &nbsp; continue</td></tr>
+              <tr><td>Functions</td><td class="mono-cell">def &nbsp; return &nbsp; lambda &nbsp; yield</td></tr>
+              <tr><td>Classes</td><td class="mono-cell">class</td></tr>
+              <tr><td>Errors</td><td class="mono-cell">try &nbsp; except &nbsp; finally &nbsp; raise &nbsp; assert</td></tr>
+              <tr><td>Modules</td><td class="mono-cell">import &nbsp; from &nbsp; as</td></tr>
+              <tr><td>Scope</td><td class="mono-cell">global &nbsp; nonlocal</td></tr>
+              <tr><td>Context and async</td><td class="mono-cell">with &nbsp; async &nbsp; await</td></tr>
+              <tr><td>Other</td><td class="mono-cell">pass &nbsp; del</td></tr>
+              <tr><td><strong>Soft</strong> keywords</td><td class="mono-cell">match &nbsp; case &nbsp; _ &nbsp; type</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note" style="margin-top:1.25rem">
+          <b>Soft keywords</b>
+          <p>The last row are keywords only where the grammar expects them, so
+            existing variables with those names still work. That compatibility
+            trick is how pattern matching arrived in 3.10 without breaking
+            code.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= RELEASES =========================== -->
+  <section class="band" id="releases" aria-labelledby="rel-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="rel-h" style="margin-bottom:1rem">Release history</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Version</th>
+                <th scope="col">Released</th>
+                <th scope="col">End of life</th>
+                <th scope="col">Headline change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="mono-cell">0.9.0</td><td class="num">Feb 1991</td><td class="num">&mdash;</td><td>First public release</td></tr>
+              <tr><td class="mono-cell">2.0</td><td class="num">Oct 2000</td><td class="num">&mdash;</td><td>List comprehensions, Unicode</td></tr>
+              <tr><td class="mono-cell">3.0</td><td class="num">Dec 2008</td><td class="num">&mdash;</td><td>The deliberate break</td></tr>
+              <tr><td class="mono-cell">2.7</td><td class="num">Jul 2010</td><td class="num">Jan 2020</td><td>Final Python 2</td></tr>
+              <tr><td class="mono-cell">3.6</td><td class="num">Dec 2016</td><td class="num">Dec 2021</td><td>f-strings</td></tr>
+              <tr><td class="mono-cell">3.8</td><td class="num">Oct 2019</td><td class="num">Oct 2024</td><td>Assignment expressions</td></tr>
+              <tr><td class="mono-cell">3.9</td><td class="num">Oct 2020</td><td class="num">Oct 2025</td><td>Dict merge; annual cadence begins</td></tr>
+              <tr><td class="mono-cell">3.10</td><td class="num">Oct 2021</td><td class="num">Oct 2026</td><td>Pattern matching; better errors</td></tr>
+              <tr><td class="mono-cell">3.11</td><td class="num">Oct 2022</td><td class="num">Oct 2027</td><td>Roughly 1.25&times; faster</td></tr>
+              <tr><td class="mono-cell">3.12</td><td class="num">Oct 2023</td><td class="num">Oct 2028</td><td>f-strings in the grammar</td></tr>
+              <tr><td class="mono-cell">3.13</td><td class="num">Oct 2024</td><td class="num">Oct 2029</td><td>Experimental free-threading and JIT</td></tr>
+              <tr><td class="mono-cell">3.14</td><td class="num">Oct 2025</td><td class="num">Oct 2030</td><td>Free-threading supported</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note" style="margin-top:1.25rem">
+          <b>Check before relying on this</b>
+          <p>Each release gets roughly two years of bug fixes and three more
+            of security fixes. Compiled in 2026 &mdash; the
+            <a href="https://devguide.python.org/versions/">official version
+            table</a> is authoritative.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= COMMANDS =========================== -->
+  <section class="band" id="commands" aria-labelledby="cmd-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="cmd-h" style="margin-bottom:1rem">Commands</h2>
+        <p class="dek" style="margin-bottom:1rem">Prefer
+          <code>python -m pip</code> to plain <code>pip</code>: it installs
+          into the interpreter you named.</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th scope="col">Command</th><th scope="col">Does</th></tr></thead>
+            <tbody>
+              <tr><td class="mono-cell">python -m venv .venv</td><td>Create a virtual environment</td></tr>
+              <tr><td class="mono-cell">source .venv/bin/activate</td><td>Activate it (macOS, Linux)</td></tr>
+              <tr><td class="mono-cell">.venv\Scripts\activate</td><td>Activate it (Windows)</td></tr>
+              <tr><td class="mono-cell">python -m pip install requests</td><td>Install a package</td></tr>
+              <tr><td class="mono-cell">python -m pip install -r requirements.txt</td><td>Install everything a project needs</td></tr>
+              <tr><td class="mono-cell">python -m pip freeze &gt; requirements.txt</td><td>Record exact versions</td></tr>
+              <tr><td class="mono-cell">python -i script.py</td><td>Run, then drop into a prompt with its state</td></tr>
+              <tr><td class="mono-cell">python -m http.server</td><td>Serve the current directory on port 8000</td></tr>
+              <tr><td class="mono-cell">python -m json.tool data.json</td><td>Pretty-print and validate JSON</td></tr>
+              <tr><td class="mono-cell">python -m timeit "sum(range(100))"</td><td>Time a snippet properly</td></tr>
+              <tr><td class="mono-cell">python -m cProfile script.py</td><td>Find where the time goes</td></tr>
+              <tr><td class="mono-cell">python -m pdb script.py</td><td>Run under the debugger</td></tr>
+              <tr><td class="mono-cell">python -X dev script.py</td><td>Development mode: extra warnings</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= CTA ============================ -->
+  <section class="band dark" aria-labelledby="cta-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <p class="eyebrow">Companion bot</p>
+        <h2 id="cta-h">Ask the bot</h2>
+        <p style="margin-top:1rem;max-width:52ch">Something missing from these
+          tables? Ask the Telegram bot. For anything authoritative, the
+          official library reference is the place to go &mdash; these tables
+          are a shortcut, not a substitute.</p>
+        <div class="btn-row">
+          <a class="btn btn--onDark" href="https://t.me/Ur_all_aboutPython_bot">Open the bot <span class="btn__arrow">&rarr;</span></a>
+          <a class="btn btn--ghost" href="https://docs.python.org/3/library/">Official reference</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div>
+        <p class="foot__mark">all<span>.</span>about<span>.</span>python</p>
+        <p style="margin-top:0.6rem;max-width:34ch">Everything about Python:
+          history, questions, projects and reference tables.</p>
+      </div>
+      <div>
+        <h4>Sections</h4>
+        <ul>
+          <li><a href="history.html">History</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Official</h4>
+        <ul>
+          <li><a href="https://docs.python.org/3/library/">Standard library</a></li>
+          <li><a href="https://docs.python.org/3/reference/">Language reference</a></li>
+          <li><a href="https://devguide.python.org/versions/">Version table</a></li>
+          <li><a href="https://peps.python.org/">PEP index</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ask</h4>
+        <ul>
+          <li><a href="https://t.me/Ur_all_aboutPython_bot">Telegram bot</a></li>
+          <li><a href="index.html#resources">Learning resources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <span>Python is a trademark of the Python Software Foundation</span>
+      <span>Set in Spectral &amp; IBM Plex</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>all.about.python — a field guide to the language</title>
+<meta name="description" content="Everything about Python, from the history of the language to the questions that actually come up: a timeline, a plain-English FAQ, twelve beginner projects, and a syntax reference.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/spectral-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plexsans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <a class="wordmark" href="index.html">all<span>.</span><b>about</b><span>.</span>python</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" hidden>Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="history.html">History</a>
+      <a href="faq.html">FAQ</a>
+      <a href="projects.html">Projects</a>
+      <a href="reference.html">Reference</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ HERO ============================ -->
+  <section class="shell hero">
+    <h1>Everything about Python</h1>
+    <p class="lede">The history of the language, the design principles behind
+      it, the questions beginners most often ask, and twelve things to build
+      once you know the basics.</p>
+
+    <div class="btn-row">
+      <a class="btn" href="history.html">Start with the history <span class="btn__arrow">&rarr;</span></a>
+      <a class="btn btn--ghost" href="faq.html">Jump to the FAQ</a>
+    </div>
+  </section>
+
+  <!-- ========================== FIGURES =========================== -->
+  <section class="band band--sunk" aria-labelledby="numbers-h">
+    <div class="shell split split--plain">
+      <div class="split__main stack">
+        <div>
+          <h2 id="numbers-h">Python by the numbers</h2>
+          <p class="dek">Python spent its first fifteen years as a minority
+            language. Every figure below is from the last few years, and all of
+            them would have looked implausible in 2005.</p>
+        </div>
+
+        <div class="figures">
+          <div class="figure">
+            <span class="figure__val">No.&nbsp;1<sup><a href="#src-1" aria-label="Source 1">1</a></sup></span>
+            <span class="figure__label">Most-used language on GitHub, having
+              passed JavaScript</span>
+            <span class="figure__src">GitHub Octoverse</span>
+          </div>
+          <div class="figure">
+            <span class="figure__val">No.&nbsp;1<sup><a href="#src-2" aria-label="Source 2">2</a></sup></span>
+            <span class="figure__label">On the TIOBE index, in the top spot
+              continuously since October 2021</span>
+            <span class="figure__src">TIOBE, early 2026</span>
+          </div>
+          <div class="figure">
+            <span class="figure__val">600k+<sup><a href="#src-3" aria-label="Source 3">3</a></sup></span>
+            <span class="figure__label">Projects published on the Python
+              Package Index</span>
+            <span class="figure__src">PyPI, early 2026</span>
+          </div>
+          <div class="figure">
+            <span class="figure__val">35</span>
+            <span class="figure__label">Reserved keywords in the whole
+              language, plus four soft keywords</span>
+            <span class="figure__src">Language reference</span>
+          </div>
+          <div class="figure">
+            <span class="figure__val">1&thinsp;/&thinsp;year<sup><a href="#src-4" aria-label="Source 4">4</a></sup></span>
+            <span class="figure__label">One feature release every October,
+              each supported for five years</span>
+            <span class="figure__src">PEP 602</span>
+          </div>
+          <div class="figure">
+            <span class="figure__val">1991</span>
+            <span class="figure__label">First public release, posted by hand to
+              a Usenet newsgroup</span>
+            <span class="figure__src">Version 0.9.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== CONTENTS ========================== -->
+  <section class="band" aria-labelledby="contents-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="contents-h">What is on this site</h2>
+        <p class="dek" style="margin-top:0.9rem">You are welcome to read these
+          pages in order, or to go straight to whichever one you need. Each
+          page is self-contained and assumes no prior reading.</p>
+
+        <nav class="toc" style="margin-top:2rem" aria-label="Sections">
+          <a class="toc__item" href="history.html">
+            <span class="toc__num">01</span>
+            <span class="toc__title">History &amp; design</span>
+            <span class="toc__go">Read &rarr;</span>
+            <span class="toc__desc">Thirty-five years in one timeline, from a
+              Christmas-break project at a Dutch research institute to the
+              removal of the global interpreter lock. Plus how the language is
+              governed and what its design principles actually mean.</span>
+          </a>
+          <a class="toc__item" href="faq.html">
+            <span class="toc__num">02</span>
+            <span class="toc__title">Frequently asked questions</span>
+            <span class="toc__go">Read &rarr;</span>
+            <span class="toc__desc">Twenty-four questions answered in plain
+              language, with working code: data types, mutability, the
+              mutable-default trap, closures, decorators, the GIL, virtual
+              environments, and the errors everyone hits first.</span>
+          </a>
+          <a class="toc__item" href="projects.html">
+            <span class="toc__num">03</span>
+            <span class="toc__title">Twelve projects</span>
+            <span class="toc__go">Read &rarr;</span>
+            <span class="toc__desc">A graded path from a twenty-line converter
+              to a database-backed web service, each with what it teaches, the
+              modules it needs, an honest time estimate, and a stretch goal
+              once it works.</span>
+          </a>
+          <a class="toc__item" href="reference.html">
+            <span class="toc__num">04</span>
+            <span class="toc__title">Reference tables</span>
+            <span class="toc__go">Read &rarr;</span>
+            <span class="toc__desc">The lookups worth having on one page:
+              built-in types, full operator precedence, truth value testing, string
+              methods, format specifiers, the exception hierarchy, keywords,
+              and every release with its end-of-life date.</span>
+          </a>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== WHERE IT FITS ======================= -->
+  <section class="band band--sunk" aria-labelledby="fits-h">
+    <div class="shell split split--plain">
+      <div class="split__main stack">
+        <div>
+          <h2 id="fits-h">Strengths and limitations</h2>
+          <p class="dek">Every language is a set of trade-offs. Knowing
+            Python's makes it easier to tell which problems to bring to it.</p>
+        </div>
+
+        <div>
+          <h3>What it does well</h3>
+          <p><strong>Being read.</strong> Significant indentation means badly
+            formatted Python does not compile, so almost all Python in the
+            world has a similar shape. Code you have never seen tends to be
+            legible on the first pass, which matters more than it sounds: most
+            programming time is spent reading.</p>
+          <p><strong>Gluing other things together.</strong> Python is a
+            comfortable driver's seat for software written in faster languages.
+            NumPy, pandas, PyTorch and SciPy are mostly C, C++, Fortran and
+            CUDA underneath; Python is the layer you actually type in. When
+            people say Python is fast enough for numerical work, this is what
+            they mean.</p>
+          <p><strong>Short programs that do real work.</strong> The standard
+            library ships with HTTP, JSON, CSV, SQLite, zip archives, dates,
+            subprocesses, argument parsing, unit testing and e-mail. A useful
+            tool is often fifty lines and no dependencies.</p>
+          <p><strong>Being learnable.</strong> Thirty-five keywords, no type
+            declarations required, no build step, and an interactive prompt that
+            evaluates as you type. You can be productive before you understand
+            how any of it works.</p>
+        </div>
+
+        <div>
+          <h3>What it does badly</h3>
+          <p><strong>Tight CPU-bound loops in pure Python.</strong> An
+            arithmetic loop in Python can run one to two orders of magnitude
+            slower than the same loop in C. The fix is nearly always to stop
+            writing the loop in Python and hand the array to a library that
+            loops in C, not to micro-optimise the Python.</p>
+          <p><strong>Hard real-time and tight memory budgets.</strong> Garbage
+            collection pauses when it likes, and every integer is a heap object
+            with a header. Microcontrollers and audio callbacks want a language
+            you can reason about to the byte.</p>
+          <p><strong>Shipping to someone else's machine.</strong> There is no
+            single answer to "send me the program." Packaging a Python
+            application for users who do not already have Python is a real
+            project, which is why so much Python runs on servers and in
+            notebooks instead of on desktops.</p>
+          <p><strong>Catching your mistakes before you run it.</strong> Names
+            are resolved at runtime, so a typo in a rarely taken branch waits
+            patiently for production. Type hints and a checker recover much of
+            this, but they are optional and bolted on, not part of the
+            language's guarantees.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================= RESOURCES ========================== -->
+  <section class="band" id="resources" aria-labelledby="res-h">
+    <div class="shell split split--plain">
+      <div class="split__main stack">
+        <div>
+          <h2 id="res-h">Where to learn Python</h2>
+          <p class="dek">All of these are free to read in a browser, ordered by
+            experience level rather than by quality.</p>
+        </div>
+
+        <ul class="res">
+          <li>
+            <div class="res__top">
+              <span class="res__name"><a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a></span>
+              <span class="res__host">automatetheboringstuff.com</span>
+            </div>
+            <p>The best first book if you have never programmed. Al Sweigart
+              teaches the language through chores &mdash; renaming files,
+              filling spreadsheets, scraping pages &mdash; so you are solving
+              recognisable problems by chapter three. Readable free online.</p>
+          </li>
+          <li>
+            <div class="res__top">
+              <span class="res__name"><a href="https://docs.python.org/3/tutorial/">The Python Tutorial</a></span>
+              <span class="res__host">docs.python.org</span>
+            </div>
+            <p>The official walkthrough. Dense and slightly dry, but correct and
+              complete, and short enough to finish in a weekend. Start here
+              instead if you already program in another language &mdash; it
+              will not waste your time explaining what a variable is.</p>
+          </li>
+          <li>
+            <div class="res__top">
+              <span class="res__name"><a href="https://greenteapress.com/wp/think-python-2e/">Think Python</a></span>
+              <span class="res__host">greenteapress.com</span>
+            </div>
+            <p>Allen Downey's computer-science-flavoured introduction. Where
+              <em>Automate</em> teaches tasks, this teaches concepts
+              &mdash; recursion, data structures, algorithmic thinking &mdash;
+              and is the better choice if you want the theory alongside.</p>
+          </li>
+          <li>
+            <div class="res__top">
+              <span class="res__name"><a href="https://docs.python.org/3/library/">The Standard Library Reference</a></span>
+              <span class="res__host">docs.python.org</span>
+            </div>
+            <p>Not a tutorial, and not meant to be read front to back. Skim the
+              module index once so you know what exists; the habit of checking
+              here before installing a package will save you a surprising
+              number of dependencies.</p>
+          </li>
+          <li>
+            <div class="res__top">
+              <span class="res__name"><a href="https://realpython.com/">Real Python</a></span>
+              <span class="res__host">realpython.com</span>
+            </div>
+            <p>Long, careful tutorials on single topics, which is exactly what
+              you want for the things that do not fit in a reference entry
+              &mdash; decorators, async, packaging, virtual environments. A
+              good portion is free; some is behind a subscription.</p>
+          </li>
+          <li>
+            <div class="res__top">
+              <span class="res__name"><a href="https://exercism.org/tracks/python">Exercism &mdash; Python track</a></span>
+              <span class="res__host">exercism.org</span>
+            </div>
+            <p>Small exercises with automated tests and, unusually, review from
+              a human mentor. The fastest way to stop writing Python that works
+              but reads like the language you learned before it.</p>
+          </li>
+          <li>
+            <div class="res__top">
+              <span class="res__name"><a href="https://peps.python.org/pep-0008/">PEP 8 &mdash; Style Guide for Python Code</a></span>
+              <span class="res__host">peps.python.org</span>
+            </div>
+            <p>The conventions every Python codebase assumes you have read. In
+              practice you should let a formatter apply it for you, but read it
+              once to understand what the formatter is doing and why.</p>
+          </li>
+          <li>
+            <div class="res__top">
+              <span class="res__name"><a href="https://github.com/python/cpython">CPython on GitHub</a></span>
+              <span class="res__host">github.com/python</span>
+            </div>
+            <p>The interpreter itself, plus the issue tracker where the
+              language's future is argued out in public. Worth opening once you
+              are comfortable, if only to see that it is ordinary code written
+              by people.</p>
+          </li>
+        </ul>
+
+        <div>
+          <h3 style="margin-bottom:0.4rem">Video courses</h3>
+          <p class="dek">Two video courses go here: a four-hour introduction
+            and a five-hour course on building graphical interfaces.</p>
+          <div class="embed-grid">
+            <figure class="embed">
+              <div class="embed__frame">
+                <iframe src="https://www.youtube-nocookie.com/embed/rfscVS0vtbw"
+                        title="Learn Python, full course for beginners, by freeCodeCamp"
+                        loading="lazy" allowfullscreen
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+              </div>
+              <figcaption>
+                <b>Learn Python: full course for beginners</b>
+                freeCodeCamp, around four and a half hours. Assumes nothing and
+                covers the whole core language in one sitting.
+              </figcaption>
+            </figure>
+            <figure class="embed">
+              <div class="embed__frame">
+                <iframe src="https://www.youtube-nocookie.com/embed/YXPyB4XeYLA"
+                        title="Tkinter course, building graphical interfaces in Python, by freeCodeCamp"
+                        loading="lazy" allowfullscreen
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+              </div>
+              <figcaption>
+                <b>Tkinter: graphical interfaces in Python</b>
+                freeCodeCamp. Desktop windows with the toolkit that already
+                ships with Python. Pairs with project nine.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== BOT CTA =========================== -->
+  <section class="band dark" aria-labelledby="bot-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <p class="eyebrow">Companion bot</p>
+        <h2 id="bot-h">Still have questions?</h2>
+        <p style="margin-top:1rem;max-width:52ch">There is a Telegram bot that
+          takes Python questions directly. Ask it the thing you could not find
+          here &mdash; it is quicker than searching, and it does not mind being
+          asked something basic twice.</p>
+        <div class="btn-row">
+          <a class="btn btn--onDark" href="https://t.me/Ur_all_aboutPython_bot">Open the bot in Telegram <span class="btn__arrow">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== SOURCES =========================== -->
+  <section class="band band--tight" aria-labelledby="src-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h3 id="src-h" style="margin-bottom:1.25rem">Sources &amp; notes</h3>
+        <ol class="sources">
+          <li id="src-1">GitHub, <em>Octoverse</em> annual report. Python
+            overtook JavaScript as the most-used language on GitHub by
+            contributor count in the 2024 edition and held the position in
+            2025. <a href="https://github.blog/news-insights/octoverse/">github.blog/news-insights/octoverse</a></li>
+          <li id="src-2">TIOBE Programming Community Index, a search-volume
+            based popularity measure &mdash; widely quoted, and widely
+            criticised for its methodology. Python first reached first place in
+            October 2021 and has held it since. <a href="https://www.tiobe.com/tiobe-index/">tiobe.com/tiobe-index</a></li>
+          <li id="src-3">Python Package Index project count, shown on the PyPI
+            home page. The index passed 500,000 projects in 2024 and has
+            continued to grow; treat the figure here as a lower bound. <a href="https://pypi.org/">pypi.org</a></li>
+          <li id="src-4">PEP 602, which moved CPython to an annual release
+            cadence from version 3.9 onward: a feature release each October,
+            then five years of support (roughly two of full fixes, three of
+            security fixes only). <a href="https://peps.python.org/pep-0602/">peps.python.org/pep-0602</a></li>
+          <li>Release and end-of-life dates throughout this site follow the
+            official schedule PEPs and the <a href="https://devguide.python.org/versions/">CPython developer's guide version page</a>.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div>
+        <p class="foot__mark">all<span>.</span>about<span>.</span>python</p>
+        <p style="margin-top:0.6rem;max-width:34ch">Everything about Python:
+          history, questions, projects and reference tables.</p>
+      </div>
+      <div>
+        <h4>Sections</h4>
+        <ul>
+          <li><a href="history.html">History</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Official</h4>
+        <ul>
+          <li><a href="https://www.python.org/">python.org</a></li>
+          <li><a href="https://docs.python.org/3/">Documentation</a></li>
+          <li><a href="https://peps.python.org/">PEP index</a></li>
+          <li><a href="https://pypi.org/">PyPI</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ask</h4>
+        <ul>
+          <li><a href="https://t.me/Ur_all_aboutPython_bot">Telegram bot</a></li>
+          <li><a href="index.html#resources">Learning resources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <span>Python is a trademark of the Python Software Foundation</span>
+      <span>Set in Spectral &amp; IBM Plex</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

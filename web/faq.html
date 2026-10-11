@@ -1,0 +1,1266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Questions &amp; answers — all.about.python</title>
+<meta name="description" content="Twenty-four common Python questions answered in plain language with working code: data types, mutability, the mutable-default trap, closures, decorators, the GIL, virtual environments and error handling.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/spectral-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/plexsans-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell masthead__inner">
+    <a class="wordmark" href="index.html">all<span>.</span><b>about</b><span>.</span>python</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" hidden>Menu</button>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="index.html">Home</a>
+      <a href="history.html">History</a>
+      <a href="faq.html" aria-current="page">FAQ</a>
+      <a href="projects.html">Projects</a>
+      <a href="reference.html">Reference</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="shell hero">
+    <p class="eyebrow">FAQ</p>
+    <h1>Frequently asked questions</h1>
+    <p class="lede">Grouped by subject. Every answer is self-contained, and
+      every code sample runs as written on Python&nbsp;3.9 or newer unless it
+      says otherwise.</p>
+    <div class="faq-controls" style="margin-top:1.5rem" hidden>
+      <button type="button" data-action="expand">Expand all</button>
+      <button type="button" data-action="collapse">Collapse all</button>
+    </div>
+  </section>
+
+  <!-- ============================ BASICS ========================== -->
+  <section class="band" aria-labelledby="g1">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="g1" style="margin-bottom:1.25rem">Basics</h2>
+
+        <div class="faq">
+
+          <details class="qa" id="q-data-types">
+            <summary>What data types are there in Python?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Basics</span>
+              <p>Everything in Python is an object, and every object has a
+                type you can ask for with <code>type(x)</code>. The ones you
+                will actually meet divide into five groups:</p>
+              <p><strong>Numbers.</strong> <code>int</code> (unbounded whole
+                numbers &mdash; no overflow, they grow until you run out of
+                memory), <code>float</code> (64-bit binary floating point),
+                <code>complex</code>, and <code>bool</code>, which is
+                technically a subclass of <code>int</code> where
+                <code>True == 1</code>.</p>
+              <p><strong>Sequences.</strong> <code>str</code> for text,
+                <code>list</code> for an ordered mutable collection,
+                <code>tuple</code> for an ordered immutable one,
+                <code>range</code> for an arithmetic sequence computed as you
+                walk it, and <code>bytes</code>/<code>bytearray</code> for raw
+                binary data.</p>
+              <p><strong>Mappings and sets.</strong> <code>dict</code> maps
+                keys to values; <code>set</code> and <code>frozenset</code>
+                hold unique unordered elements.</p>
+              <p><strong>None.</strong> <code>NoneType</code> has exactly one
+                value, <code>None</code>, which means "no value here." It is
+                not zero and not an empty string.</p>
+              <p><strong>Callables and classes.</strong> Functions, classes,
+                methods and modules are all ordinary objects too &mdash; you
+                can put a function in a list or pass a class as an argument.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Python prompt</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span><span class="b">type</span>(<span class="n">42</span>), <span class="b">type</span>(<span class="n">3.14</span>), <span class="b">type</span>(<span class="s">"text"</span>)
+<span class="ou">(&lt;class 'int'&gt;, &lt;class 'float'&gt;, &lt;class 'str'&gt;)</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="b">type</span>([<span class="n">1</span>, <span class="n">2</span>]), <span class="b">type</span>((<span class="n">1</span>, <span class="n">2</span>)), <span class="b">type</span>({<span class="n">1</span>, <span class="n">2</span>})
+<span class="ou">(&lt;class 'list'&gt;, &lt;class 'tuple'&gt;, &lt;class 'set'&gt;)</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="n">10</span> <span class="o">**</span> <span class="n">50</span>  <span class="c"># ints have no upper limit</span>
+<span class="ou">100000000000000000000000000000000000000000000000000</span></code></pre>
+              </div>
+              <p>The <a href="reference.html#types">reference page carries the
+                full table</a>, with mutability and ordering for each type.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-mutable">
+            <summary>What does mutable and immutable actually mean?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Basics</span>
+              <p>A mutable object can be changed after it is created. An
+                immutable one cannot &mdash; operations that look like changes
+                actually build a new object. This matters because assignment in
+                Python never copies: two names can refer to the same object.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Mutable: both names see the change</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span>a <span class="o">=</span> [<span class="n">1</span>, <span class="n">2</span>]
+<span class="pr">&gt;&gt;&gt; </span>b <span class="o">=</span> a            <span class="c"># not a copy; the same list</span>
+<span class="pr">&gt;&gt;&gt; </span>a.append(<span class="n">3</span>)
+<span class="pr">&gt;&gt;&gt; </span>b
+<span class="ou">[1, 2, 3]</span></code></pre>
+              </div>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Immutable: rebinding leaves the original alone</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span>s <span class="o">=</span> <span class="s">"ab"</span>
+<span class="pr">&gt;&gt;&gt; </span>t <span class="o">=</span> s
+<span class="pr">&gt;&gt;&gt; </span>s <span class="o">+=</span> <span class="s">"c"</span>        <span class="c"># builds a new string, rebinds s</span>
+<span class="pr">&gt;&gt;&gt; </span>t
+<span class="ou">'ab'</span></code></pre>
+              </div>
+              <p><strong>Immutable:</strong> <code>int</code>,
+                <code>float</code>, <code>bool</code>, <code>str</code>,
+                <code>bytes</code>, <code>tuple</code>,
+                <code>frozenset</code>, <code>None</code>.
+                <strong>Mutable:</strong> <code>list</code>,
+                <code>dict</code>, <code>set</code>,
+                <code>bytearray</code>, and almost every class you write.</p>
+              <p>Two practical consequences. Only immutable objects can be
+                dictionary keys or set members, which is why you can use a
+                tuple as a key but not a list. And if you need an independent
+                copy of a mutable object, ask for one explicitly:
+                <code>b = a.copy()</code>, or
+                <code>copy.deepcopy(a)</code> when it contains other mutable
+                objects.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-list-tuple-set">
+            <summary>Should I use a list, a tuple, or a set?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Basics</span>
+              <p>Pick by what the collection <em>means</em>, not by which is
+                fastest:</p>
+              <p><strong>List</strong> &mdash; a sequence of things of the same
+                kind, where order matters and the contents will change. A list
+                of users, a list of lines from a file. This is the default
+                choice.</p>
+              <p><strong>Tuple</strong> &mdash; a fixed group of things whose
+                positions mean different things, like a coordinate
+                <code>(x, y)</code> or a database row. The immutability is the
+                point: it signals "this is one composite value, not a
+                collection you will edit." If you find yourself indexing a
+                tuple past <code>[1]</code>, consider a
+                <code>NamedTuple</code> or a <code>dataclass</code> so the
+                fields have names.</p>
+              <p><strong>Set</strong> &mdash; when you only care about
+                membership and uniqueness, and never about order. Checking
+                <code>x in collection</code> is roughly constant-time on a set
+                and linear on a list, which turns a slow loop into a fast one
+                on sizeable data.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>The membership difference</span></div>
+<pre><code>names_list <span class="o">=</span> [<span class="s">"ada"</span>, <span class="s">"grace"</span>, <span class="s">"alan"</span>]
+names_set  <span class="o">=</span> {<span class="s">"ada"</span>, <span class="s">"grace"</span>, <span class="s">"alan"</span>}
+
+<span class="s">"alan"</span> <span class="k">in</span> names_list   <span class="c"># scans until found  — O(n)</span>
+<span class="s">"alan"</span> <span class="k">in</span> names_set    <span class="c"># hashes and looks up — O(1)</span>
+
+<span class="c"># sets also do algebra</span>
+{<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>} <span class="o">&amp;</span> {<span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>}      <span class="c"># {2, 3}   intersection</span>
+{<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>} <span class="o">|</span> {<span class="n">3</span>, <span class="n">4</span>}         <span class="c"># {1, 2, 3, 4}  union</span>
+{<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>} <span class="o">-</span> {<span class="n">2</span>}            <span class="c"># {1, 3}   difference</span></code></pre>
+              </div>
+            </div>
+          </details>
+
+          <details class="qa" id="q-interpreted">
+            <summary>Is Python interpreted or compiled?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Basics</span>
+              <p>Both, and the question is slightly malformed &mdash;
+                "interpreted" and "compiled" describe implementations, not
+                languages.</p>
+              <p>What CPython, the standard implementation, actually does: it
+                compiles your source to <strong>bytecode</strong>, a compact
+                instruction set for a virtual machine, and then interprets that
+                bytecode. The compile step is why you see
+                <code>__pycache__</code> directories appear with
+                <code>.pyc</code> files in them &mdash; those are cached
+                bytecode, so unchanged modules do not need recompiling.</p>
+              <p>There is no separate build command because the compile happens
+                automatically on import. You can watch it:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Looking at the bytecode</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span><span class="k">import</span> <span class="b">dis</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="b">dis</span>.dis(<span class="k">lambda</span> x: x <span class="o">*</span> <span class="n">2</span> <span class="o">+</span> <span class="n">1</span>)
+<span class="ou">  LOAD_FAST                x
+  LOAD_CONST               2
+  BINARY_OP                5 (*)
+  LOAD_CONST               1
+  BINARY_OP                0 (+)
+  RETURN_VALUE</span></code></pre>
+              </div>
+              <p>Since 3.13 there is also an experimental just-in-time
+                compiler that can turn hot bytecode into machine code at
+                runtime, which blurs the distinction further. Other
+                implementations make different choices entirely: PyPy is a
+                JIT-compiling interpreter, and tools like Cython compile a
+                Python-like language ahead of time to C.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-pep8">
+            <summary>What is PEP 8, and do I have to follow it?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Basics</span>
+              <p>PEP 8 is the style guide for Python code: four spaces per
+                indent level, <code>snake_case</code> for functions and
+                variables, <code>CapWords</code> for classes,
+                <code>UPPER_CASE</code> for constants, a line-length limit, and
+                rules for where blank lines and spaces go.</p>
+              <p>Nothing enforces it &mdash; code that ignores it runs
+                perfectly. In practice essentially every Python project follows
+                it, which is worth more than any individual rule in it: you can
+                drop into unfamiliar Python and the shapes are already
+                familiar.</p>
+              <p>You should not apply it by hand. Use a formatter and a linter
+                and stop thinking about it:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Shell</span></div>
+<pre><code><span class="c"># one tool that formats and lints, now the common choice</span>
+python <span class="o">-</span>m pip install ruff
+ruff format .          <span class="c"># rewrite the files</span>
+ruff check .           <span class="c"># report problems</span></code></pre>
+              </div>
+              <p>The guide itself says that consistency within a project beats
+                consistency with the guide, and that readability is the reason
+                for all of it. If a rule makes a particular piece of code
+                harder to read, PEP 8 explicitly tells you to break the
+                rule.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ STRINGS ========================= -->
+  <section class="band" aria-labelledby="g2">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="g2" style="margin-bottom:1.25rem">Strings</h2>
+        <div class="faq">
+
+          <details class="qa" id="q-strip-newlines">
+            <summary>How do I remove the newline characters at the end of a string?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Strings</span>
+              <p>Use <code>str.rstrip()</code> with the characters you want
+                gone. Passing <code>"\r\n"</code> strips any trailing
+                combination of carriage returns and newlines while leaving
+                trailing spaces and tabs intact, which is usually what you
+                want when reading a file:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Python prompt</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span><span class="s">"data\r\n"</span>.rstrip(<span class="s">"\r\n"</span>)
+<span class="ou">'data'</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="s">"  padded  \n"</span>.rstrip(<span class="s">"\r\n"</span>)   <span class="c"># spaces survive</span>
+<span class="ou">'  padded  '</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="s">"a\nb\n\n\n"</span>.rstrip(<span class="s">"\r\n"</span>)    <span class="c"># inner newline survives</span>
+<span class="ou">'a\nb'</span></code></pre>
+              </div>
+              <p>Note that the argument is a <em>set of characters</em>, not a
+                suffix to match. <code>rstrip("\r\n")</code> removes any number
+                of <code>\r</code> and <code>\n</code> in any order. If you
+                want to remove exactly one trailing newline and nothing more,
+                use <code>removesuffix()</code>, added in Python 3.9:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Python prompt</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span><span class="s">"a\n\n"</span>.removesuffix(<span class="s">"\n"</span>)      <span class="c"># exactly one</span>
+<span class="ou">'a\n'</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="s">"no newline"</span>.removesuffix(<span class="s">"\n"</span>)  <span class="c"># unchanged, no error</span>
+<span class="ou">'no newline'</span></code></pre>
+              </div>
+              <p>The related tools: <code>strip()</code> does both ends,
+                <code>lstrip()</code> the left, and calling any of them with no
+                argument removes all whitespace. When you are splitting a whole
+                document into lines, <code>splitlines()</code> handles the line
+                endings for you and copes with
+                <code>\r\n</code>, <code>\n</code> and <code>\r</code> alike
+                &mdash; prefer it over <code>split("\n")</code>.</p>
+              <div class="note">
+                <b>Usually unnecessary</b>
+                <p>Iterating a text file in the default mode already
+                  translates line endings, and most parsers
+                  (<code>csv</code>, <code>json</code>) do not care about
+                  trailing whitespace. Reach for <code>rstrip</code> when you
+                  are handling the text yourself.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="qa" id="q-format">
+            <summary>How should I format strings?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Strings</span>
+              <p>Use f-strings. They have been available since Python 3.6 and
+                there is no longer a good reason to use anything else for new
+                code:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>f-strings</span></div>
+<pre><code>name <span class="o">=</span> <span class="s">"Ada"</span>
+items <span class="o">=</span> <span class="n">3</span>
+total <span class="o">=</span> <span class="n">21.5</span>
+
+<span class="b">print</span>(<span class="s">f"</span>{name}<span class="s"> bought </span>{items}<span class="s"> items for </span>{total}<span class="s">"</span>)
+
+<span class="c"># the colon introduces a format spec</span>
+<span class="s">f"</span>{total<span class="o">:</span>.2f}<span class="s">"</span>        <span class="c"># '21.50'   two decimal places</span>
+<span class="s">f"</span>{items<span class="o">:</span>&gt;5}<span class="s">"</span>         <span class="c"># '    3'   right-aligned in 5 columns</span>
+<span class="s">f"</span>{<span class="n">1234567</span><span class="o">:</span>,}<span class="s">"</span>       <span class="c"># '1,234,567'  thousands separators</span>
+<span class="s">f"</span>{<span class="n">0.0847</span><span class="o">:</span>.1%}<span class="s">"</span>      <span class="c"># '8.5%'    as a percentage</span>
+
+<span class="c"># = prints the expression as well as its value: good for debugging</span>
+<span class="s">f"</span>{total <span class="o">/</span> items<span class="o">=</span>}<span class="s">"</span>   <span class="c"># 'total / items=7.166666666666667'</span></code></pre>
+              </div>
+              <p>The older forms you will still see in existing code:
+                <code>"{} items".format(n)</code>, which is fine but more
+                verbose, and <code>"%d items" % n</code>, the C-style operator
+                that predates both. Keep the old style in two places: logging
+                calls, where <code>logging.info("got %s", value)</code> defers
+                the formatting until the message is actually emitted, and
+                anywhere the template comes from outside your program.</p>
+              <div class="note">
+                <b>Never f-string an SQL query</b>
+                <p>Interpolating user input into SQL is how injection
+                  vulnerabilities happen. Pass parameters to the database
+                  driver instead:
+                  <code>cur.execute("SELECT * FROM t WHERE id = ?", (user_id,))</code>.
+                  The same caution applies to shell commands &mdash; pass
+                  <code>subprocess</code> a list of arguments rather than a
+                  built-up string.</p>
+              </div>
+              <p>The <a href="reference.html#format">reference page lists the
+                format specifiers</a> in full.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-str-bytes">
+            <summary>What is the difference between <code>str</code> and <code>bytes</code>?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Strings</span>
+              <p><code>str</code> is text: a sequence of Unicode characters,
+                suitable for anything a human reads. <code>bytes</code> is
+                raw data: a sequence of integers from 0 to 255, suitable for
+                anything a machine reads &mdash; file contents, network
+                packets, image data.</p>
+              <p>Separating the two was one of the central changes in Python 3,
+                and it is why they never mix implicitly. To cross between them
+                you must name an encoding, because there is no universally
+                correct default:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Encoding and decoding</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span><span class="s">"café"</span>.encode(<span class="s">"utf-8"</span>)       <span class="c"># str  -&gt; bytes</span>
+<span class="ou">b'caf\xc3\xa9'</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="b">len</span>(<span class="s">"café"</span>), <span class="b">len</span>(<span class="s">"café"</span>.encode(<span class="s">"utf-8"</span>))
+<span class="ou">(4, 5)                          # 4 characters, 5 bytes</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="s">b"caf\xc3\xa9"</span>.decode(<span class="s">"utf-8"</span>)  <span class="c"># bytes -&gt; str</span>
+<span class="ou">'café'</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="s">"text"</span> <span class="o">+</span> <span class="s">b"bytes"</span>
+<span class="ou">TypeError: can only concatenate str (not "bytes") to str</span></code></pre>
+              </div>
+              <p>In practice: open files in text mode (<code>"r"</code>) with
+                <code>encoding="utf-8"</code> stated explicitly when you want
+                text, and binary mode (<code>"rb"</code>) when you want bytes.
+                HTTP responses, subprocess output and sockets all hand you
+                bytes, and the decision about how to interpret them is
+                yours.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Always name the encoding</span></div>
+<pre><code><span class="c"># good: behaves the same on every machine</span>
+<span class="k">with</span> <span class="b">open</span>(<span class="s">"notes.txt"</span>, encoding<span class="o">=</span><span class="s">"utf-8"</span>) <span class="k">as</span> f:
+    text <span class="o">=</span> f.read()
+
+<span class="c"># risky: uses the platform default, which differs across machines</span>
+<span class="k">with</span> <span class="b">open</span>(<span class="s">"notes.txt"</span>) <span class="k">as</span> f:
+    text <span class="o">=</span> f.read()</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <details class="qa" id="q-str-plus-int">
+            <summary>Why can't I add a number to a string?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Strings</span>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Python prompt</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span><span class="s">"Total: "</span> <span class="o">+</span> <span class="n">5</span>
+<span class="ou">TypeError: can only concatenate str (not "int") to str</span></code></pre>
+              </div>
+              <p>Because <code>+</code> would have to guess whether you meant
+                arithmetic or concatenation, and Python refuses to guess
+                &mdash; this is "explicit is better than implicit" in action.
+                Languages that do guess give you
+                <code>"Total: 5"</code> in one place and <code>"15"</code> in
+                another from the same operator, and the resulting bugs are
+                genuinely hard to find.</p>
+              <p>Say which one you want:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Three ways, in order of preference</span></div>
+<pre><code>n <span class="o">=</span> <span class="n">5</span>
+
+<span class="s">f"Total: </span>{n}<span class="s">"</span>          <span class="c"># 'Total: 5'  — use this</span>
+<span class="s">"Total: "</span> <span class="o">+</span> <span class="b">str</span>(n)      <span class="c"># 'Total: 5'  — fine, clunkier</span>
+<span class="b">print</span>(<span class="s">"Total:"</span>, n)       <span class="c"># 'Total: 5'  — print joins with a space</span></code></pre>
+              </div>
+              <p>The mirror image catches people reading input:
+                <code>input()</code> always returns a string, so
+                <code>input("age? ") + 1</code> fails and
+                <code>int(input("age? ")) + 1</code> works. Wrap that
+                <code>int()</code> in a <code>try</code> if a human is
+                typing.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== FUNCTIONS ======================== -->
+  <section class="band" aria-labelledby="g3">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="g3" style="margin-bottom:1.25rem">Functions</h2>
+        <div class="faq">
+
+          <details class="qa" id="q-call-by-name">
+            <summary>How do I use strings to call functions or methods?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Functions</span>
+              <p>Build a dictionary that maps each string to a function object.
+                Functions are ordinary values in Python, so they can sit in a
+                dictionary like anything else. The great advantage of a lookup
+                table is that the strings do not have to match the function
+                names, and nothing outside the table can be reached:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Dispatch table</span></div>
+<pre><code><span class="k">def</span> <span class="f">start_engine</span>():
+    <span class="b">print</span>(<span class="s">"starting"</span>)
+
+<span class="k">def</span> <span class="f">stop_engine</span>():
+    <span class="b">print</span>(<span class="s">"stopping"</span>)
+
+<span class="c"># note: no parentheses — we store the functions, not their results</span>
+actions <span class="o">=</span> {
+    <span class="s">"go"</span>:   start_engine,
+    <span class="s">"stop"</span>: stop_engine,
+}
+
+command <span class="o">=</span> <span class="b">input</span>(<span class="s">"command: "</span>)
+action <span class="o">=</span> actions.get(command)
+
+<span class="k">if</span> action <span class="k">is</span> <span class="k">None</span>:
+    <span class="b">print</span>(<span class="s">f"unknown command: </span>{command<span class="o">!r</span>}<span class="s">"</span>)
+<span class="k">else</span>:
+    action()</code></pre>
+              </div>
+              <p>For methods on an object, <code>getattr</code> is the direct
+                equivalent, but it will reach anything on the object, so
+                restrict it:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>getattr, carefully</span></div>
+<pre><code>ALLOWED <span class="o">=</span> {<span class="s">"upper"</span>, <span class="s">"lower"</span>, <span class="s">"title"</span>}
+
+<span class="k">def</span> <span class="f">apply</span>(text, method_name):
+    <span class="k">if</span> method_name <span class="k">not</span> <span class="k">in</span> ALLOWED:
+        <span class="k">raise</span> <span class="b">ValueError</span>(<span class="s">f"not permitted: </span>{method_name}<span class="s">"</span>)
+    <span class="k">return</span> <span class="b">getattr</span>(text, method_name)()
+
+apply(<span class="s">"hello"</span>, <span class="s">"upper"</span>)   <span class="c"># 'HELLO'</span></code></pre>
+              </div>
+              <div class="note">
+                <b>Not with eval</b>
+                <p><code>eval(user_string)</code> and
+                  <code>exec(user_string)</code> will also work, and will run
+                  anything at all that the string contains &mdash; including
+                  code that deletes files. If the string came from outside your
+                  program, treat both as off limits. A dispatch dictionary is
+                  faster, clearer and cannot be abused.</p>
+              </div>
+            </div>
+          </details>
+
+          <details class="qa" id="q-higher-order">
+            <summary>How do I create higher-order functions?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Functions</span>
+              <p>A higher-order function takes functions as arguments, returns
+                a function, or both. The simplest way to return one is to
+                define it inside another function. The inner function keeps
+                access to the outer function's variables, which makes it a
+                <strong>closure</strong>:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Returning a function</span></div>
+<pre><code><span class="k">def</span> <span class="f">linear</span>(a, b):
+    <span class="s">"""Return the function x -&gt; a*x + b."""</span>
+    <span class="k">def</span> <span class="f">apply</span>(x):
+        <span class="k">return</span> a <span class="o">*</span> x <span class="o">+</span> b     <span class="c"># a and b stay available</span>
+    <span class="k">return</span> apply
+
+double_plus_one <span class="o">=</span> linear(<span class="n">2</span>, <span class="n">1</span>)
+double_plus_one(<span class="n">10</span>)              <span class="c"># 21</span>
+
+<span class="c"># each call captures its own a and b</span>
+negate <span class="o">=</span> linear(<span class="o">-</span><span class="n">1</span>, <span class="n">0</span>)
+negate(<span class="n">10</span>)                      <span class="c"># -10</span></code></pre>
+              </div>
+              <p>Taking a function as an argument needs no special syntax
+                at all &mdash; just call the parameter:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Accepting a function</span></div>
+<pre><code><span class="k">def</span> <span class="f">apply_twice</span>(fn, value):
+    <span class="k">return</span> fn(fn(value))
+
+apply_twice(<span class="b">str</span>.upper, <span class="s">"ab"</span>)      <span class="c"># 'AB'</span>
+apply_twice(<span class="k">lambda</span> n: n <span class="o">*</span> <span class="n">3</span>, <span class="n">2</span>)   <span class="c"># 18</span>
+
+<span class="c"># the built-ins that take functions</span>
+words <span class="o">=</span> [<span class="s">"pear"</span>, <span class="s">"fig"</span>, <span class="s">"banana"</span>]
+<span class="b">sorted</span>(words, key<span class="o">=</span><span class="b">len</span>)            <span class="c"># ['fig', 'pear', 'banana']</span>
+<span class="b">max</span>(words, key<span class="o">=</span><span class="b">len</span>)               <span class="c"># 'banana'</span></code></pre>
+              </div>
+              <p>Two tools from <code>functools</code> are worth knowing.
+                <code>partial</code> fixes some arguments of an existing
+                function, which is often tidier than writing a closure by hand;
+                <code>cache</code> memoises results:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>functools</span></div>
+<pre><code><span class="k">from</span> <span class="b">functools</span> <span class="k">import</span> partial, cache
+
+<span class="b">int</span>(<span class="s">"1101"</span>, <span class="n">2</span>)                     <span class="c"># 13</span>
+from_binary <span class="o">=</span> partial(<span class="b">int</span>, base<span class="o">=</span><span class="n">2</span>)
+from_binary(<span class="s">"1101"</span>)                  <span class="c"># 13</span>
+
+<span class="d">@cache</span>                             <span class="c"># remembers past results</span>
+<span class="k">def</span> <span class="f">fib</span>(n):
+    <span class="k">return</span> n <span class="k">if</span> n &lt; <span class="n">2</span> <span class="k">else</span> fib(n <span class="o">-</span> <span class="n">1</span>) <span class="o">+</span> fib(n <span class="o">-</span> <span class="n">2</span>)
+
+fib(<span class="n">100</span>)                           <span class="c"># instant; without @cache, hopeless</span></code></pre>
+              </div>
+            </div>
+          </details>
+
+          <details class="qa" id="q-mutable-default">
+            <summary>Why does my function remember the previous call's list?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Functions</span>
+              <p>Because default argument values are evaluated <em>once</em>,
+                when the <code>def</code> statement runs &mdash; not on each
+                call. A mutable default is therefore shared by every call that
+                does not override it. This is the single most common surprise
+                in the language:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>The trap</span></div>
+<pre><code><span class="k">def</span> <span class="f">add_item</span>(item, basket<span class="o">=</span>[]):     <span class="c"># don't do this</span>
+    basket.append(item)
+    <span class="k">return</span> basket
+
+add_item(<span class="s">"apple"</span>)                   <span class="c"># ['apple']</span>
+add_item(<span class="s">"pear"</span>)                    <span class="c"># ['apple', 'pear']  ← surprise</span>
+add_item(<span class="s">"fig"</span>)                     <span class="c"># ['apple', 'pear', 'fig']</span></code></pre>
+              </div>
+              <p>The fix is to default to <code>None</code> and build a fresh
+                object inside the function:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>The fix</span></div>
+<pre><code><span class="k">def</span> <span class="f">add_item</span>(item, basket<span class="o">=</span><span class="k">None</span>):
+    <span class="k">if</span> basket <span class="k">is</span> <span class="k">None</span>:
+        basket <span class="o">=</span> []                  <span class="c"># new list on every call</span>
+    basket.append(item)
+    <span class="k">return</span> basket</code></pre>
+              </div>
+              <p>Immutable defaults &mdash; numbers, strings, <code>None</code>,
+                tuples &mdash; are perfectly safe, because nothing can modify
+                them. The rule is simply: never use <code>[]</code>,
+                <code>{}</code>, <code>set()</code>, or an instance of your own
+                class as a default value.</p>
+              <p>The same evaluate-once behaviour bites with any expression:
+                <code>def log(when=datetime.now()):</code> records the time the
+                module was imported, forever.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-args-kwargs">
+            <summary>What are <code>*args</code> and <code>**kwargs</code>?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Functions</span>
+              <p>They let a function accept any number of arguments.
+                <code>*args</code> collects extra positional arguments into a
+                tuple; <code>**kwargs</code> collects extra keyword arguments
+                into a dictionary. The asterisks are the syntax; the names are
+                only convention.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Collecting</span></div>
+<pre><code><span class="k">def</span> <span class="f">describe</span>(label, <span class="o">*</span>values, <span class="o">**</span>options):
+    <span class="b">print</span>(label, values, options)
+
+describe(<span class="s">"nums"</span>, <span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, reverse<span class="o">=</span><span class="k">True</span>)
+<span class="ou"># nums (1, 2, 3) {'reverse': True}</span></code></pre>
+              </div>
+              <p>The same symbols work in reverse at the call site, unpacking a
+                sequence or a mapping into arguments:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Unpacking</span></div>
+<pre><code>point <span class="o">=</span> (<span class="n">3</span>, <span class="n">4</span>)
+settings <span class="o">=</span> {<span class="s">"sep"</span>: <span class="s">" | "</span>, <span class="s">"end"</span>: <span class="s">"!\n"</span>}
+
+<span class="b">print</span>(<span class="o">*</span>point, <span class="o">**</span>settings)      <span class="c"># 3 | 4!</span>
+<span class="c"># identical to: print(3, 4, sep=" | ", end="!\n")</span></code></pre>
+              </div>
+              <p>The main use is writing a wrapper that must pass everything
+                through without knowing the signature it is wrapping &mdash;
+                which is exactly what decorators do. A bare <code>*</code> in a
+                signature is a related trick: it forces every parameter after
+                it to be passed by name, which makes call sites much easier to
+                read.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Keyword-only parameters</span></div>
+<pre><code><span class="k">def</span> <span class="f">connect</span>(host, <span class="o">*</span>, port<span class="o">=</span><span class="n">443</span>, verify<span class="o">=</span><span class="k">True</span>):
+    ...
+
+connect(<span class="s">"example.com"</span>, port<span class="o">=</span><span class="n">8080</span>)   <span class="c"># fine</span>
+connect(<span class="s">"example.com"</span>, <span class="n">8080</span>)        <span class="c"># TypeError — and that's the point</span></code></pre>
+              </div>
+            </div>
+          </details>
+
+          <details class="qa" id="q-decorators">
+            <summary>What is a decorator?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Functions</span>
+              <p>A decorator is a function that takes a function and returns a
+                replacement for it. The <code>@</code> syntax is shorthand:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>The @ is only sugar</span></div>
+<pre><code><span class="d">@timed</span>
+<span class="k">def</span> <span class="f">work</span>():
+    ...
+
+<span class="c"># means exactly this:</span>
+<span class="k">def</span> <span class="f">work</span>():
+    ...
+work <span class="o">=</span> timed(work)</code></pre>
+              </div>
+              <p>So a decorator is useful whenever you want to wrap behaviour
+                around a function without editing its body &mdash; timing,
+                logging, caching, retries, access checks. Here is a complete
+                one:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>A decorator that times calls</span></div>
+<pre><code><span class="k">import</span> <span class="b">functools</span>
+<span class="k">import</span> <span class="b">time</span>
+
+<span class="k">def</span> <span class="f">timed</span>(fn):
+    <span class="d">@functools.wraps</span>(fn)            <span class="c"># keep fn's name and docstring</span>
+    <span class="k">def</span> <span class="f">wrapper</span>(<span class="o">*</span>args, <span class="o">**</span>kwargs):
+        start <span class="o">=</span> <span class="b">time</span>.perf_counter()
+        <span class="k">try</span>:
+            <span class="k">return</span> fn(<span class="o">*</span>args, <span class="o">**</span>kwargs)
+        <span class="k">finally</span>:                    <span class="c"># report even if it raised</span>
+            elapsed <span class="o">=</span> <span class="b">time</span>.perf_counter() <span class="o">-</span> start
+            <span class="b">print</span>(<span class="s">f"</span>{fn.__name__}<span class="s"> took </span>{elapsed<span class="o">:</span>.3f}<span class="s">s"</span>)
+    <span class="k">return</span> wrapper
+
+<span class="d">@timed</span>
+<span class="k">def</span> <span class="f">slow_add</span>(a, b):
+    <span class="b">time</span>.sleep(<span class="n">0.2</span>)
+    <span class="k">return</span> a <span class="o">+</span> b
+
+slow_add(<span class="n">1</span>, <span class="n">2</span>)                   <span class="c"># prints: slow_add took 0.200s</span></code></pre>
+              </div>
+              <p>Two details that matter. <code>functools.wraps</code> copies
+                the original function's name, docstring and annotations onto
+                the wrapper &mdash; without it, your function is called
+                <code>wrapper</code> in every traceback and help page. And
+                <code>*args, **kwargs</code> means the wrapper works on any
+                signature.</p>
+              <p>You will meet plenty of decorators before you write one:
+                <code>@property</code>, <code>@staticmethod</code>,
+                <code>@classmethod</code>, <code>@dataclass</code>,
+                <code>@functools.cache</code>, and the route decorators in
+                every web framework.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= DATA =========================== -->
+  <section class="band" aria-labelledby="g4">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="g4" style="margin-bottom:1.25rem">Data structures</h2>
+        <div class="faq">
+
+          <details class="qa" id="q-comprehensions">
+            <summary>What is a comprehension, and when should I not use one?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Data</span>
+              <p>A comprehension builds a collection from an iterable in a
+                single expression. It is the most characteristic construct in
+                the language:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>The four forms</span></div>
+<pre><code>nums <span class="o">=</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>]
+
+[n <span class="o">*</span> n <span class="k">for</span> n <span class="k">in</span> nums]                  <span class="c"># list  [1, 4, 9, 16, 25]</span>
+{n <span class="o">%</span> <span class="n">3</span> <span class="k">for</span> n <span class="k">in</span> nums}                  <span class="c"># set   {0, 1, 2}</span>
+{n: n <span class="o">*</span> n <span class="k">for</span> n <span class="k">in</span> nums}              <span class="c"># dict  {1: 1, 2: 4, ...}</span>
+(n <span class="o">*</span> n <span class="k">for</span> n <span class="k">in</span> nums)                  <span class="c"># generator — lazy</span>
+
+<span class="c"># with a filter</span>
+[n <span class="k">for</span> n <span class="k">in</span> nums <span class="k">if</span> n <span class="o">%</span> <span class="n">2</span> <span class="o">==</span> <span class="n">0</span>]         <span class="c"># [2, 4]</span>
+
+<span class="c"># equivalent loop, for comparison</span>
+squares <span class="o">=</span> []
+<span class="k">for</span> n <span class="k">in</span> nums:
+    squares.append(n <span class="o">*</span> n)</code></pre>
+              </div>
+              <p>Prefer a comprehension when you are building a collection by
+                transforming or filtering another one, and the whole thing fits
+                comfortably on one line. Use a loop instead when:</p>
+              <p><strong>It needs two conditions and a nested loop.</strong> If
+                you have to read it twice, it has stopped being clearer than
+                the loop.</p>
+              <p><strong>The body has side effects.</strong> A comprehension
+                written for its side effect, whose list you then throw away, is
+                a loop wearing a disguise. Write the loop.</p>
+              <p><strong>The result is enormous.</strong> A list comprehension
+                materialises every element. Use a generator expression
+                &mdash; round brackets &mdash; to stream instead, which matters
+                for files and large query results:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Generator: constant memory</span></div>
+<pre><code><span class="c"># reads the whole file into memory</span>
+total <span class="o">=</span> <span class="b">sum</span>([<span class="b">len</span>(line) <span class="k">for</span> line <span class="k">in</span> <span class="b">open</span>(<span class="s">"big.log"</span>)])
+
+<span class="c"># reads one line at a time</span>
+total <span class="o">=</span> <span class="b">sum</span>(<span class="b">len</span>(line) <span class="k">for</span> line <span class="k">in</span> <span class="b">open</span>(<span class="s">"big.log"</span>))</code></pre>
+              </div>
+            </div>
+          </details>
+
+          <details class="qa" id="q-dict-order">
+            <summary>Are dictionaries ordered?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Data</span>
+              <p>Yes. Since Python 3.7 a <code>dict</code> is guaranteed to
+                preserve insertion order, and iterating it gives you keys in
+                the order they were first added. In 3.6 this was already true
+                but was an implementation detail you were told not to rely
+                on; in 3.7 it became a language guarantee.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Python prompt</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span>d <span class="o">=</span> {<span class="s">"z"</span>: <span class="n">1</span>, <span class="s">"a"</span>: <span class="n">2</span>, <span class="s">"m"</span>: <span class="n">3</span>}
+<span class="pr">&gt;&gt;&gt; </span><span class="b">list</span>(d)
+<span class="ou">['z', 'a', 'm']                  # insertion order, not sorted</span>
+<span class="pr">&gt;&gt;&gt; </span>d[<span class="s">"z"</span>] <span class="o">=</span> <span class="n">99</span>                 <span class="c"># updating keeps the position</span>
+<span class="pr">&gt;&gt;&gt; </span><span class="b">list</span>(d)
+<span class="ou">['z', 'a', 'm']</span></code></pre>
+              </div>
+              <p>Two caveats. Ordered is not sorted &mdash; if you want
+                alphabetical, ask for it:
+                <code>sorted(d.items())</code>. And
+                <code>set</code> is still unordered; iteration order there is
+                an accident of hashing and must never be relied on.</p>
+              <p><code>collections.OrderedDict</code> still exists and is still
+                occasionally useful, because it compares order-sensitively
+                (<code>OrderedDict([("a",1),("b",2)]) != OrderedDict([("b",2),("a",1)])</code>,
+                whereas the equivalent plain dicts are equal) and has a
+                <code>move_to_end()</code> method. For simply keeping insertion
+                order, a plain <code>dict</code> is enough.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-is-vs-equals">
+            <summary>What is the difference between <code>is</code> and <code>==</code>?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Data</span>
+              <p><code>==</code> asks whether two objects have the same value.
+                <code>is</code> asks whether two names refer to the very same
+                object in memory. You almost always want
+                <code>==</code>.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Python prompt</span></div>
+<pre><code><span class="pr">&gt;&gt;&gt; </span>a <span class="o">=</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+<span class="pr">&gt;&gt;&gt; </span>b <span class="o">=</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
+<span class="pr">&gt;&gt;&gt; </span>a <span class="o">==</span> b          <span class="c"># same contents</span>
+<span class="ou">True</span>
+<span class="pr">&gt;&gt;&gt; </span>a <span class="k">is</span> b          <span class="c"># two separate lists</span>
+<span class="ou">False</span>
+<span class="pr">&gt;&gt;&gt; </span>c <span class="o">=</span> a
+<span class="pr">&gt;&gt;&gt; </span>c <span class="k">is</span> a          <span class="c"># the same list</span>
+<span class="ou">True</span></code></pre>
+              </div>
+              <p>Use <code>is</code> only for the three singletons, where
+                there is exactly one instance in the whole interpreter:
+                <code>x is None</code>, <code>x is True</code>,
+                <code>x is False</code>. <code>is None</code> is the
+                idiomatic null check.</p>
+              <div class="note">
+                <b>Why <code>is</code> sometimes seems to work</b>
+                <p>CPython caches small integers and short strings, so
+                  <code>256 is 256</code> is <code>True</code> while
+                  <code>1000 is 1000</code> may not be. This is an
+                  optimisation, not a promise, and it differs between versions
+                  and implementations. Code that relies on it is broken code
+                  that happens to pass today. Modern Python will warn you with
+                  a <code>SyntaxWarning</code> when you compare a literal with
+                  <code>is</code>.</p>
+              </div>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ RUNTIME ========================= -->
+  <section class="band" aria-labelledby="g5">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="g5" style="margin-bottom:1.25rem">Running Python</h2>
+        <div class="faq">
+
+          <details class="qa" id="q-libraries">
+            <summary>What is the advantage of Python's libraries?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Runtime</span>
+              <p>Two separate advantages that get conflated: the standard
+                library, which is already installed, and the package index,
+                which is not.</p>
+              <p>The <strong>standard library</strong> is unusually broad
+                &mdash; the phrase used about it is "batteries included." It
+                ships with facilities for internet protocols and formats:
+                modules for writing HTTP servers and clients, parsing and
+                composing e-mail, reading and writing XML, JSON and CSV. It
+                also wraps the operating system in a portable way, so the same
+                script handles paths, processes and files on Windows, macOS and
+                Linux without changes. Useful programs frequently need nothing
+                beyond it:</p>
+              <div class="table-wrap">
+                <table>
+                  <caption>A sample of what is already installed</caption>
+                  <thead>
+                    <tr><th scope="col">Need</th><th scope="col">Module</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Paths and the filesystem</td><td class="mono-cell">pathlib, os, shutil, glob</td></tr>
+                    <tr><td>Structured data files</td><td class="mono-cell">json, csv, sqlite3, tomllib</td></tr>
+                    <tr><td>Web requests and servers</td><td class="mono-cell">urllib.request, http.server</td></tr>
+                    <tr><td>Dates and times</td><td class="mono-cell">datetime, zoneinfo, calendar</td></tr>
+                    <tr><td>Command-line interfaces</td><td class="mono-cell">argparse, sys, getpass</td></tr>
+                    <tr><td>Running other programs</td><td class="mono-cell">subprocess, shlex</td></tr>
+                    <tr><td>Concurrency</td><td class="mono-cell">asyncio, threading, multiprocessing</td></tr>
+                    <tr><td>Testing and debugging</td><td class="mono-cell">unittest, pdb, logging, dis</td></tr>
+                    <tr><td>Text and binary wrangling</td><td class="mono-cell">re, textwrap, struct, difflib</td></tr>
+                    <tr><td>Maths and randomness</td><td class="mono-cell">math, statistics, random, secrets</td></tr>
+                    <tr><td>Archives and compression</td><td class="mono-cell">zipfile, tarfile, gzip</td></tr>
+                    <tr><td>Better data structures</td><td class="mono-cell">collections, itertools, dataclasses</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>The <strong>Python Package Index</strong> adds several hundred
+                thousand third-party projects, installable with one command.
+                Its real significance is the depth in particular fields: for
+                numerical and scientific work, machine learning, and data
+                analysis, the Python packages are not merely available but are
+                the tools the field actually uses, which means the examples,
+                the papers, the tutorials and the job adverts all assume
+                them.</p>
+              <p>Worth knowing about the trade-off, though. Anything you
+                install is code from a stranger, running with your privileges.
+                Check what you are adding, pin your versions, and prefer the
+                standard library when it will do &mdash; the module index is
+                the first place to look, not the last.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-venv">
+            <summary>What is a virtual environment, and do I need one?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Runtime</span>
+              <p>A virtual environment is a private directory holding its own
+                copy of the interpreter's package directory. Packages installed
+                while it is active go there instead of into the system Python.
+                Yes, you need one &mdash; one per project, always.</p>
+              <p>Without them, every project on the machine shares one set of
+                packages. The first time two projects need different versions
+                of the same library, you have an unsolvable problem.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>The whole workflow</span></div>
+<pre><code><span class="c"># create it, once per project</span>
+python <span class="o">-</span>m venv .venv
+
+<span class="c"># activate it, once per terminal session</span>
+source .venv/bin/activate      <span class="c"># macOS and Linux</span>
+.venv\Scripts\activate         <span class="c"># Windows</span>
+
+<span class="c"># now pip installs into the project, not the system</span>
+python <span class="o">-</span>m pip install requests
+
+<span class="c"># record what you installed, so others can reproduce it</span>
+python <span class="o">-</span>m pip freeze &gt; requirements.txt
+python <span class="o">-</span>m pip install <span class="o">-</span>r requirements.txt
+
+deactivate                     <span class="c"># when you are done</span></code></pre>
+              </div>
+              <p>Add <code>.venv/</code> to your <code>.gitignore</code>. The
+                environment is disposable and machine-specific; the
+                <code>requirements.txt</code> is the thing worth committing.</p>
+              <p>Two conveniences. Writing <code>python -m pip</code> rather
+                than <code>pip</code> guarantees you are installing into the
+                interpreter you think you are, which eliminates a whole genre
+                of confusion. And newer tools &mdash; <code>uv</code> and
+                Poetry among them &mdash; manage the environment and the
+                dependency list together; they are worth a look once the manual
+                version makes sense to you.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-gil">
+            <summary>What is the GIL, and has it been removed?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Runtime</span>
+              <p>The Global Interpreter Lock is a mutex inside CPython that
+                allows only one thread to execute Python bytecode at a time.
+                Its consequence: threads in Python have historically given you
+                no speed-up on CPU-bound work, no matter how many cores the
+                machine has.</p>
+              <p>It exists because it makes the interpreter's memory
+                management simple and single-threaded code fast. Removing it
+                had been proposed repeatedly for twenty years and rejected each
+                time, because every attempt slowed down the single-threaded
+                case that nearly all Python actually is.</p>
+              <p><strong>The current state.</strong> Python 3.13 shipped an
+                experimental separate build in which the lock can be disabled,
+                and in 3.14 that free-threaded build became officially
+                supported. So the honest answer is: it is optional now, in a
+                build you have to choose deliberately, and the default
+                interpreter most people run still has it. Packages with C
+                extensions need their own work to be safe without it, so the
+                ecosystem is still catching up.</p>
+              <p><strong>What to do today.</strong> Choose by the kind of work,
+                which is the right habit regardless of what happens to the
+                lock:</p>
+              <div class="table-wrap">
+                <table>
+                  <caption>Picking a concurrency model</caption>
+                  <thead>
+                    <tr><th scope="col">Work</th><th scope="col">Use</th><th scope="col">Why</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Waiting on network or disk</td>
+                      <td class="mono-cell">asyncio</td>
+                      <td>Thousands of waits, one thread, no lock contention</td>
+                    </tr>
+                    <tr>
+                      <td>A few blocking calls</td>
+                      <td class="mono-cell">threading</td>
+                      <td>The lock is released during I/O, so threads do help here</td>
+                    </tr>
+                    <tr>
+                      <td>Heavy computation</td>
+                      <td class="mono-cell">multiprocessing</td>
+                      <td>Separate processes, separate interpreters, real cores</td>
+                    </tr>
+                    <tr>
+                      <td>Numeric arrays</td>
+                      <td class="mono-cell">numpy and friends</td>
+                      <td>The loop runs in C, which drops the lock anyway</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+
+          <details class="qa" id="q-slow">
+            <summary>Why is Python slow, and when is it not?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Runtime</span>
+              <p>Pure Python arithmetic is slow for structural reasons.
+                Every value is a heap-allocated object, so <code>a + b</code>
+                means looking up both objects' types and dispatching to the
+                right addition; names are resolved in dictionaries at runtime
+                rather than being fixed offsets; and nothing can be specialised
+                ahead of time, because any name might be rebound to a different
+                type at any moment. A tight numeric loop can run one to two
+                orders of magnitude slower than the equivalent C.</p>
+              <p>It is not slow when the work is not happening in Python. This
+                is the key insight, and it is why the performance question
+                matters far less in practice than it sounds:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Same result, very different cost</span></div>
+<pre><code><span class="c"># a million Python-level operations</span>
+total <span class="o">=</span> <span class="n">0</span>
+<span class="k">for</span> x <span class="k">in</span> data:
+    total <span class="o">+=</span> x <span class="o">*</span> <span class="n">2</span>
+
+<span class="c"># one Python-level call; the loop runs in C</span>
+<span class="k">import</span> <span class="b">numpy</span> <span class="k">as</span> <span class="b">np</span>
+total <span class="o">=</span> (<span class="b">np</span>.asarray(data) <span class="o">*</span> <span class="n">2</span>).sum()</code></pre>
+              </div>
+              <p>So the real rule is to keep the loops out of Python. Hand bulk
+                work to a library that loops in C, and let Python be the thing
+                that decides what to do rather than the thing that does it.</p>
+              <p>Beyond that, in rough order of how much they pay back:
+                measure before you optimise (<code>cProfile</code>, or
+                <code>timeit</code> for small pieces) &mdash; the slow part is
+                routinely not where you guess; fix the algorithm, since the
+                right data structure beats any micro-optimisation; cache
+                repeated work with <code>functools.cache</code>; and only then
+                consider PyPy, Cython, or writing the hot part in Rust or C.
+                Note also that the interpreter itself has got substantially
+                faster since 3.11, so upgrading is sometimes the entire
+                fix.</p>
+              <p>And the usual caveat: most programs are not CPU-bound at all.
+                If yours spends its time waiting for a database, a network
+                call or a disk, the interpreter's speed is irrelevant.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= ERRORS AND TYPES ===================== -->
+  <section class="band" aria-labelledby="g6">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <h2 id="g6" style="margin-bottom:1.25rem">Errors and types</h2>
+        <div class="faq">
+
+          <details class="qa" id="q-errors">
+            <summary>How should I handle errors?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Errors</span>
+              <p>Catch the specific exceptions you can actually do something
+                about, and let everything else propagate. A traceback that
+                stops the program is far more useful than a program that
+                carries on with wrong data.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>The full form</span></div>
+<pre><code><span class="k">try</span>:
+    value <span class="o">=</span> <span class="b">int</span>(raw)
+<span class="k">except</span> <span class="b">ValueError</span> <span class="k">as</span> err:          <span class="c"># only what you can handle</span>
+    <span class="b">print</span>(<span class="s">f"not a number: </span>{err}<span class="s">"</span>)
+    value <span class="o">=</span> <span class="n">0</span>
+<span class="k">else</span>:
+    <span class="b">print</span>(<span class="s">"parsed cleanly"</span>)          <span class="c"># ran only if no exception</span>
+<span class="k">finally</span>:
+    <span class="b">print</span>(<span class="s">"always runs"</span>)            <span class="c"># cleanup, even on raise</span></code></pre>
+              </div>
+              <p><strong>Do not write a bare <code>except:</code></strong>. It
+                catches <code>KeyboardInterrupt</code> and
+                <code>SystemExit</code> too, so your program becomes
+                unkillable and silently swallows bugs. If you genuinely need a
+                catch-all &mdash; at the top of a long-running server, say
+                &mdash; catch <code>Exception</code> and log it with its
+                traceback:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Catch-all, done properly</span></div>
+<pre><code><span class="k">import</span> <span class="b">logging</span>
+
+<span class="k">try</span>:
+    handle_request()
+<span class="k">except</span> <span class="b">Exception</span>:
+    <span class="b">logging</span>.exception(<span class="s">"request failed"</span>)   <span class="c"># logs the traceback</span>
+    <span class="c"># carry on serving the next request</span></code></pre>
+              </div>
+              <p>Python's style is to try the operation and handle the failure,
+                rather than checking first &mdash; "easier to ask forgiveness
+                than permission." Checking first is also a race condition: a
+                file can vanish between your check and your open.</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Idiomatic, and also correct</span></div>
+<pre><code><span class="c"># preferred</span>
+<span class="k">try</span>:
+    <span class="k">with</span> <span class="b">open</span>(path, encoding<span class="o">=</span><span class="s">"utf-8"</span>) <span class="k">as</span> f:
+        data <span class="o">=</span> f.read()
+<span class="k">except</span> <span class="b">FileNotFoundError</span>:
+    data <span class="o">=</span> <span class="s">""</span>
+
+<span class="c"># racy: the file may be deleted after the check</span>
+<span class="k">if</span> <span class="b">os</span>.path.exists(path):
+    ...</code></pre>
+              </div>
+              <p>Use <code>with</code> for anything that must be closed; it
+                releases the resource even if the block raises. Raise built-in
+                exceptions where they fit &mdash;
+                <code>ValueError</code> for a bad value,
+                <code>TypeError</code> for a bad type,
+                <code>KeyError</code> for a missing key &mdash; and define your
+                own by subclassing <code>Exception</code> when callers need to
+                distinguish your failures from everyone else's. The
+                <a href="reference.html#exceptions">exception hierarchy is on
+                the reference page</a>.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-type-hints">
+            <summary>Do type hints do anything at runtime?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Types</span>
+              <p>No. Python does not check them and does not enforce them. This
+                runs without complaint:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Hints are not checks</span></div>
+<pre><code><span class="k">def</span> <span class="f">greet</span>(name: <span class="b">str</span>) <span class="o">-&gt;</span> <span class="b">str</span>:
+    <span class="k">return</span> <span class="s">f"hello </span>{name}<span class="s">"</span>
+
+greet(<span class="n">42</span>)        <span class="c"># 'hello 42' — runs fine, no error</span></code></pre>
+              </div>
+              <p>Hints are for tools and for readers. Their value comes from
+                running a type checker, as a separate step, which finds the
+                mistake before the program does:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Shell</span></div>
+<pre><code>python <span class="o">-</span>m pip install mypy
+mypy app.py
+<span class="ou">app.py:5: error: Argument 1 to "greet" has incompatible
+type "int"; expected "str"</span></code></pre>
+              </div>
+              <p>The notation you need for most code:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>Common annotations</span></div>
+<pre><code>names: <span class="b">list</span>[<span class="b">str</span>]                 <span class="c"># list of strings</span>
+scores: <span class="b">dict</span>[<span class="b">str</span>, <span class="b">int</span>]           <span class="c"># str keys, int values</span>
+maybe: <span class="b">str</span> <span class="o">|</span> <span class="k">None</span>                <span class="c"># str or None (3.10+)</span>
+pair: <span class="b">tuple</span>[<span class="b">int</span>, <span class="b">int</span>]            <span class="c"># exactly two ints</span>
+
+<span class="k">def</span> <span class="f">total</span>(values: <span class="b">list</span>[<span class="b">float</span>]) <span class="o">-&gt;</span> <span class="b">float</span>:
+    <span class="k">return</span> <span class="b">sum</span>(values)</code></pre>
+              </div>
+              <p>Worth hinting function signatures in anything you expect to
+                keep, since that is where the information helps most &mdash;
+                your editor will autocomplete and catch typos. Not worth
+                annotating every local variable. And because the checker is
+                optional, hints can be wrong: they describe intent, and only a
+                checker in your workflow keeps them honest.</p>
+              <p>One runtime exception to the rule: some libraries do read
+                annotations deliberately. Pydantic validates against them and
+                FastAPI builds request parsing from them, so in those
+                frameworks the hints really are load-bearing.</p>
+            </div>
+          </details>
+
+          <details class="qa" id="q-precedence">
+            <summary>What is the operator precedence in Python?</summary>
+            <div class="qa__body">
+              <span class="qa__tag">Reference</span>
+              <p>From tightest binding to loosest, the groups are: parentheses
+                and displays; attribute access, subscription and calls;
+                <code>await</code>; <code>**</code>; unary
+                <code>+x -x ~x</code>; <code>* @ / // %</code>;
+                <code>+ -</code>; <code>&lt;&lt; &gt;&gt;</code>;
+                <code>&amp;</code>; <code>^</code>; <code>|</code>; all the
+                comparisons together with <code>in</code> and <code>is</code>;
+                <code>not</code>; <code>and</code>; <code>or</code>;
+                the conditional expression; <code>lambda</code>; and finally
+                <code>:=</code>, which binds loosest of all.</p>
+              <p>The <a href="reference.html#precedence">reference page has the
+                complete table</a> with associativity. In practice, four things
+                are worth committing to memory:</p>
+              <div class="snippet">
+                <div class="snippet__bar"><span>The ones that actually catch people</span></div>
+<pre><code><span class="o">-</span><span class="n">2</span> <span class="o">**</span> <span class="n">2</span>              <span class="c"># -4, not 4 — ** binds tighter than unary minus</span>
+<span class="n">2</span> <span class="o">**</span> <span class="n">3</span> <span class="o">**</span> <span class="n">2</span>          <span class="c"># 512, not 64 — ** is right-associative</span>
+<span class="k">not</span> a <span class="o">==</span> b            <span class="c"># not (a == b) — comparison binds tighter</span>
+<span class="n">1</span> <span class="o">&lt;</span> x <span class="o">&lt;</span> <span class="n">10</span>            <span class="c"># chains, meaning (1 &lt; x) and (x &lt; 10)</span>
+
+<span class="c"># and the classic bitwise-vs-comparison trap</span>
+mask <span class="o">&amp;</span> <span class="n">1</span> <span class="o">==</span> <span class="n">0</span>          <span class="c"># mask &amp; (1 == 0)  — almost never what you meant</span>
+(mask <span class="o">&amp;</span> <span class="n">1</span>) <span class="o">==</span> <span class="n">0</span>        <span class="c"># write the parentheses</span></code></pre>
+              </div>
+              <p>The practical advice is that nobody should have to consult
+                this table to read your code. Where an expression mixes
+                arithmetic with bitwise or comparison operators, add
+                parentheses even when they are redundant.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= CTA ============================ -->
+  <section class="band dark" aria-labelledby="cta-h">
+    <div class="shell split split--plain">
+      <div class="split__main">
+        <p class="eyebrow">Companion bot</p>
+        <h2 id="cta-h">Still have questions?</h2>
+        <p style="margin-top:1rem;max-width:52ch">If your question is not
+          here, ask the Telegram bot. Otherwise, the next useful step is to
+          write something: there are twelve graded projects waiting.</p>
+        <div class="btn-row">
+          <a class="btn btn--onDark" href="projects.html">See the projects <span class="btn__arrow">&rarr;</span></a>
+          <a class="btn btn--ghost" href="https://t.me/Ur_all_aboutPython_bot">Open the bot</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div>
+        <p class="foot__mark">all<span>.</span>about<span>.</span>python</p>
+        <p style="margin-top:0.6rem;max-width:34ch">Everything about Python:
+          history, questions, projects and reference tables.</p>
+      </div>
+      <div>
+        <h4>Sections</h4>
+        <ul>
+          <li><a href="history.html">History</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="reference.html">Reference</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Official</h4>
+        <ul>
+          <li><a href="https://docs.python.org/3/">Documentation</a></li>
+          <li><a href="https://docs.python.org/3/library/">Standard library</a></li>
+          <li><a href="https://peps.python.org/">PEP index</a></li>
+          <li><a href="https://pypi.org/">PyPI</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ask</h4>
+        <ul>
+          <li><a href="https://t.me/Ur_all_aboutPython_bot">Telegram bot</a></li>
+          <li><a href="index.html#resources">Learning resources</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <span>Python is a trademark of the Python Software Foundation</span>
+      <span>Set in Spectral &amp; IBM Plex</span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>
