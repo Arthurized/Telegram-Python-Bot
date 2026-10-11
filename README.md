@@ -34,7 +34,7 @@ An evolution from a hobby project to engineering mindset. (The rest of the proje
 *  *Logic:* Business logic isolated in `services.py`
 *  *Quality:* Unit testing via `pytest`
 
-The new website was deployed with Vercel, while the bot remains on Replit.
+The new website was deployed with Vercel, while the bot remains on Replit. The website is just an extension of the bot available here: https://all-about-python.vercel.app/reference.html
 
 ## Project Structure:
 
